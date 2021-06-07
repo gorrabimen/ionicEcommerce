@@ -6,7 +6,7 @@ const User = mongoose.model('User', UserSchema);
 export class UserController {
 
     public register(req: Request, res: Response) {
-        console.log("body : ",req)
+        console.log("body : ",req.body)
         let newUser = new User(req.body);
 
         newUser.save((err, User) => {
@@ -17,11 +17,12 @@ export class UserController {
         });
     }
     public login(req: Request, res: Response) {
-        User.findOne({ email: req.params.email }, (err, user) => {
+        User.findOne({ email: req.body.email }, (err, user) => {
             if (err) res.send(err);
             else {
+                console.log("user : ",user)
                 if (!user) res.send({ error: 400, message: "user not found" });
-                if (user.password != req.params.password) res.send({ error: 400, message: "user password doesn't match" });
+                if (user.password != req.body.password) res.send({ error: 400, message: "user password doesn't match" });
                 else {
                     user = JSON.parse(JSON.stringify(user));
                     delete user.password;
