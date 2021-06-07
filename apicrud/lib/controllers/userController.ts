@@ -9,11 +9,11 @@ export class UserController {
         console.log("body : ",req.body)
         let newUser = new User(req.body);
 
-        newUser.save((err, User) => {
+        newUser.save((err, user : any) => {
             if (err) {
                 res.send(err);
             }
-            res.json(User);
+            res.json({message : "utilisateur créé avec succès"});
         });
     }
     public login(req: Request, res: Response) {
@@ -22,7 +22,7 @@ export class UserController {
             else {
                 console.log("user : ",user)
                 if (!user) res.send({ error: 400, message: "user not found" });
-                if (user.password != req.body.password) res.send({ error: 400, message: "user password doesn't match" });
+                else if (user.password != req.body.password) res.send({ error: 400, message: "user password doesn't match" });
                 else {
                     user = JSON.parse(JSON.stringify(user));
                     delete user.password;

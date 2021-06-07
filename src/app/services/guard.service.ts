@@ -3,15 +3,12 @@ import { Injectable } from '@angular/core';
     providedIn: 'root',
    })
 export class AuthService {
-  constructor() {}
-  // ...
   public isAuthenticated(): boolean {
-    let token = localStorage.getItem('loggedIn');
-    // Check whether the token is expired and return
-    // true or false
-   // if(token=='1'){
-      
-   // }
-    return token=='1'?true:false;
+   let indicator = localStorage.getItem("loggedIn");
+   let userId = localStorage.getItem("userId");
+
+   if (indicator == '1' && userId)
+     return true
+   return false
   }
 }

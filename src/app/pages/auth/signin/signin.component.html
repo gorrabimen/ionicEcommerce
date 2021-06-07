@@ -27,13 +27,13 @@
     <img class="ion-padding" src="assets/images/eCommerce-img.png" />
 
     <!-- SignIn Form -->
-    <form class="ion-padding">
+    <div class="ion-padding">
       <!-- Email -->
       <ion-item>
         <ion-label>
           <ion-icon name="mail" color="color2"></ion-icon>
         </ion-label>
-        <ion-input type="email" placeholder="Email" name="email"></ion-input>
+        <ion-input [(ngModel)]="userForm.email" type="email" placeholder="Email" name="email"></ion-input>
       </ion-item>
 
       <!-- Password -->
@@ -41,19 +41,12 @@
         <ion-label>
           <ion-icon name="eye" color="color2"></ion-icon>
         </ion-label>
-        <ion-input type="Mot de passe" placeholder="Mot de passe" name="Mot de passe"></ion-input>
+        <ion-input [(ngModel)]="userForm.password" type="password" placeholder="Mot de passe" name="Mot de passe"></ion-input>
       </ion-item>
-
-      <!-- Forget Password Button -->
-      <ion-button expand="block" color="color2" fill="clear" slot="end" routerLink="/forget-password"
-        routerDirection="root">
-        Mot de passe oublié?
-      </ion-button>
-
 
       <!-- SignIn Buttons -->
       <div class="buttons">
-        <ion-button expand="block" color="color1" routerLink="/tabs/tab1" routerDirection="root" (click)="auth()">
+        <ion-button expand="block" color="color1" (click)="submit()">
           <ion-text><strong>se connecter</strong></ion-text>
         </ion-button>
 
@@ -65,7 +58,7 @@
         <a href="" target="_blank" class="btn-social btn-twitter"><i class="fab fa-twitter"></i></a>
 
       </div>
-    </form>
+    </div>
   </div>
 
   <!-- SignUp Buttons -->

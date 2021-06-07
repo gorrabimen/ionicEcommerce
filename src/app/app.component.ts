@@ -22,7 +22,7 @@ import { PagesService } from './services/pages.service';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  
+
 
   public appPages = [];
 
@@ -36,11 +36,14 @@ export class AppComponent {
   ) {
     this.initializeApp();
   }
-  isLoggedIn(){
-    
-    let indicator=localStorage.getItem("loggedIn")
-    
-    return indicator=='1'?true:false
+  isLoggedIn() {
+
+    let indicator = localStorage.getItem("loggedIn");
+    let userId = localStorage.getItem("userId");
+
+    if (indicator == '1' && userId)
+      return true
+    return false
   }
   initializeApp() {
     this.platform.ready().then(() => {
@@ -54,11 +57,12 @@ export class AppComponent {
 
   // Signout Button
   signout() {
-    localStorage.setItem("loggedIn",'-1')
-    this.router.navigate(['/onbroading']);
+    localStorage.setItem("loggedIn", '-1')
+    localStorage.removeItem("userId")
+    this.router.navigate(['/signin']);
     this.menuController.enable(false); // Make Sidemenu disable
   }
-  signin(){
+  signin() {
     this.router.navigate(['/signin'])
   }
 }
