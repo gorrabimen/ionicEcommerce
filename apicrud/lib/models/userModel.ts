@@ -3,18 +3,28 @@ import * as mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 export const UserSchema = new Schema({
-  
-    name: {
+
+    firstname: {
         type: String,
-        required: 'Enter a name'
+        required: true
+    },
+    lastname: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    gender: {
+        type: String,
+    },
+    password: {
+        type: String,
+        required: true
     },
     mobile: {
         type: String,
-        required: 'Enter a phone number'
+        required: true
     },
-},
- {timestamps:  {
-        createdAt:"crAt",
-        updatedAt:"upAt"
-    }
-});
+}, { timestamps: true });

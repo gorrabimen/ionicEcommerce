@@ -3,48 +3,63 @@ import { UserSchema } from '../models/userModel';
 import { Request, Response } from 'express';
 
 const User = mongoose.model('User', UserSchema);
-export class UserController{
+export class UserController {
 
-public addNewUser (req: Request, res: Response) {
-    let newUser = new User(req.body);
+    public register(req: Request, res: Response) {
+        console.log("body : ",req)
+        let newUser = new User(req.body);
 
-    newUser.save((err, User) => {
-        if(err){
-            res.send(err);
-        }
-        res.json(User);
-    });
-}
-public getUsers (req: Request, res: Response) {
-    User.find({}, (err, User) => {
-        if(err){
-            res.send(err);
-        }
-        res.json(User);
-    });
-}
-public getUserWithID (req: Request, res: Response) {
-    User.findById(req.params.UserId, (err, User) => {
-        if(err){
-            res.send(err);
-        }
-        res.json(User);
-    });
-}
-public updateUser (req: Request, res: Response) {
-    User.findOneAndUpdate({ _id: req.params.UserId }, req.body, { new: true }, (err, User) => {
-        if(err){
-            res.send(err);
-        }
-        res.json(User);
-    });
-}
-public deleteUser (req: Request, res: Response) {
-    User.remove({ _id: req.params.UserId }, (err) => {
-        if(err){
-            res.send(err);
-        }
-        res.json({ message: 'Successfully deleted User!'});
-    });
-}
+        newUser.save((err, User) => {
+            if (err) {
+                res.send(err);
+            }
+            res.json(User);
+        });
+    }
+    public login(req: Request, res: Response) {
+        User.findOne({ email: req.params.email }, (err, user) => {
+            if (err) res.send(err);
+            else {
+                if (!user) res.send({ error: 400, message: "user not found" });
+                if (user.password != req.params.password) res.send({ error: 400, message: "user password doesn't match" });
+                else {
+                    user = JSON.parse(JSON.stringify(user));
+                    delete user.password;
+                    res.json(user);
+                }
+            }
+        });
+    }
+    public getAllUsers(req: Request, res: Response) {
+        User.find({}, (err, User) => {
+            if (err) {
+                res.send(err);
+            }
+            res.json(User);
+        });
+    }
+    public getUserbyId(req: Request, res: Response) {
+        User.findById(req.params.id, (err, User) => {
+            if (err) {
+                res.send(err);
+            }
+            res.json(User);
+        });
+    }
+    public update(req: Request, res: Response) {
+        User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, User) => {
+            if (err) {
+                res.send(err);
+            }
+            res.json(User);
+        });
+    }
+    public delete(req: Request, res: Response) {
+        User.remove({ _id: req.params.id }, (err) => {
+            if (err) {
+                res.send(err);
+            }
+            res.json({ message: 'Successfully deleted User!' });
+        });
+    }
 }

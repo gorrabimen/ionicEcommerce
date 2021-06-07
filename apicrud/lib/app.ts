@@ -8,7 +8,8 @@ class App {
     public app: express.Application;
     public routePrv: Routes = new Routes();
    // public mongoUrl: string = 'mongodb://10.10.10.8:27017/CRMdb';
-    public mongoUrl: string = 'mongodb://127.0.0.1:27017/mongo_data_base_name';
+    // public mongoUrl: string = 'mongodb://127.0.0.1:27017/testpfe';
+    public mongoUrl: string = 'mongodb+srv://test:testtest@test1.fnyba.mongodb.net/testpfe?retryWrites=true&w=majority';
     constructor() {
         this.app = express();
         this.config();
