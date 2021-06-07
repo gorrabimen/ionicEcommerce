@@ -1,0 +1,107 @@
+
+<!-- Header -->
+<ion-header class="ion-no-border">
+  <ion-toolbar color="color1">
+
+    <!-- Side Menu -->
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+ 
+
+    <!-- Page title -->
+    <ion-title>Mon Compte</ion-title>
+  </ion-toolbar>
+</ion-header>
+<!-- Back to previous page -->
+<ion-buttons slot="start"> 
+<ion-back-button color="color1" default-href="" routerLink="/tabs/tab5" text="" icon="arrow-back">
+</ion-back-button></ion-buttons>
+<!-- Contents -->
+<ion-content id="account" class="ion-padding">
+
+  
+
+  <div class="section_two ion-padding">
+    <form class="ion-padding">
+
+       <!--Name -->
+      <ion-item>
+        <ion-label>
+          <ion-icon name="person" color="color2"></ion-icon>
+        </ion-label>
+        <ion-input type="text" placeholder="Prénom" [(ngModel)]="person.name"></ion-input>
+        
+      </ion-item>
+
+      <!-- First Name -->
+      <ion-item>
+        <ion-label>
+          <ion-icon  color="color2"></ion-icon>
+        </ion-label>
+        <ion-input type="text" placeholder="Nom" name="prenom"></ion-input>
+      </ion-item>
+
+      <!--Sexe  -->
+       <ion-input> <ion-icon name="person" color="color2" style="margin-left:15px;"></ion-icon>
+          <ion-radio-group>
+            <ion-item class="ion-padding-top">
+             <ion-radio>
+              </ion-radio >Homme
+             <ion-radio style="margin-left:12px;">
+               </ion-radio>Femme
+              </ion-item>
+          </ion-radio-group></ion-input>
+        
+      <!-- Email -->
+      <ion-item class="ion-padding-top">
+        <ion-label>
+          <ion-icon name="mail" color="color2"></ion-icon>
+        </ion-label>
+        
+        <ion-input type="email" placeholder="Email" name="email"></ion-input>
+      </ion-item>
+       
+      <!-- Phone Number -->
+      <ion-item class="ion-padding-top">
+        <ion-label>
+          <ion-icon name="call" color="color2" size="small"></ion-icon>
+        </ion-label>
+       <ion-button size="small" fill="clear">+216</ion-button>
+         <ion-input type="number" placeholder="Numéro de téléphone "name="phone"></ion-input>
+        
+      </ion-item>
+<!-- enregistrer-->
+      <ion-button expand="block" color="color1" routerLink="/tabs/tab1" routerDirection="root">
+        <ion-text><strong>Enregistrer</strong></ion-text>
+      </ion-button>
+<!-- mot de pass-->
+    <ion-item>
+      <ion-label>
+        <ion-icon  color="color2"></ion-icon>
+      </ion-label>
+      <ion-input type="text" placeholder="Mot de passe actuel" name="nom"></ion-input>
+      
+    </ion-item>
+<!-- mot de pass -->
+<ion-item>
+  <ion-label>
+    <ion-icon  color="color2"></ion-icon>
+  </ion-label>
+  <ion-input type="text" placeholder="Mot de passe" name="nom"></ion-input>
+  
+</ion-item>
+      
+      <!-- modifier-->
+      <ion-button expand="block" color="color1" routerLink="/tabs/tab1" routerDirection="root">
+        <ion-text><strong>Changer le mot de passe</strong></ion-text>
+      </ion-button>
+       
+      
+    </form>
+  </div>
+
+
+</ion-content>
+
+

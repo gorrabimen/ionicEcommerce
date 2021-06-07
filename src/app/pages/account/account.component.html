@@ -1,0 +1,129 @@
+<!--
+  - Account Screen
+  - @author    ThemesBuckets <themebucketbd@gmail.com>
+  - @copyright Copyright (c) 2020
+  - @license   ThemesBuckets
+-->
+
+<!-- Header -->
+<ion-header class="ion-no-border">
+  <ion-toolbar color="color1">
+
+    <!-- Side Menu -->
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <!-- Page title -->
+    <ion-title>Mon Compte</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Contents -->
+<ion-content id="account" class="ion-padding">
+
+  <!-- User/Profile Infos -->
+  <ion-item lines="none">
+    <!-- Avatar/Image of User -->
+    <ion-avatar slot="end">
+      <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+    </ion-avatar>
+
+    <!-- Name of User -->
+    <ion-label>
+      <h2>Bonjour!</h2>
+      <p>Merci d'insérer votre compte</p>
+    </ion-label>
+    <ion-button color="color1" size="small" routerLink="/signin">Connectez-vous</ion-button>
+  </ion-item>
+  <!-- Some Menu Options 
+  <ion-card>
+    <ion-grid>
+      <ion-row class="ion-text-center">
+        <ion-col>
+          <ion-icon name="heart" style="zoom:1.5;"></ion-icon><br />
+          <ion-button routerLink="/tabs/tab3" size="small" color="color1">Mes favorise</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-icon name="checkbox-outline" style="zoom:1.5;"></ion-icon><br />
+          <ion-button routerLink="/tabs/orders" size="small" color="color1">Mes commandes</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-icon name="cart" style="zoom:1.5;"></ion-icon><br />
+           <ion-button routerLink="/cart" size="small" color="color1">Mon panier</ion-button>
+          
+        </ion-col>
+        <ion-col>
+          <ion-icon name="gift" style="zoom:1.5;"></ion-icon><br />
+          <ion-button routerLink="/tabs/tab2" size="small" color="color1">Offres</ion-button>
+        
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+   Some Orders Option -->
+  <ion-card>
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label>MON COMPTE</ion-label>
+      </ion-item-divider>
+
+      <ion-item lines="none">
+      <ion-icon name="checkbox-outline" size="small" ></ion-icon>
+        <ion-label>Mes commandes</ion-label>
+        <ion-icon name="arrow-forward" size="small" slot="end" routerLink="/tabs/orders"></ion-icon>
+      </ion-item>
+      <ion-item lines="none">
+      <ion-icon name="heart" size="small"></ion-icon>
+        <ion-label>Articles sauvgardés</ion-label>
+        <ion-icon name="arrow-forward" size="small" slot="end" routerLink="/tabs/tab3"></ion-icon>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon  name="cart" size="small"></ion-icon>
+        <ion-label>Mon panier</ion-label>
+        <ion-icon name="arrow-forward" size="small" slot="end" routerLink="/cart"></ion-icon>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-icon  name="refresh" size="small"></ion-icon>
+        <ion-label>Récement recherché</ion-label>
+        <ion-icon name="arrow-forward" size="small" slot="end"></ion-icon>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon  name="mail" size="small"></ion-icon>
+        <ion-label>Boite de réception</ion-label>
+        <ion-icon name="arrow-forward" size="small" slot="end"></ion-icon>
+      </ion-item>
+    </ion-item-group>
+  </ion-card>
+
+  <ion-card>
+  <ion-item-group>
+      <ion-item-divider>
+        <ion-label>MES PARAMÈTRES</ion-label>
+      </ion-item-divider>
+    
+      <ion-item lines="none">
+        <ion-label>adresse de livraison</ion-label>
+        <ion-icon name="arrow-forward" size="small" slot="end" routerLink="/checkout"></ion-icon>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>Détails</ion-label>
+        <ion-icon name="arrow-forward" size="small" slot="end" routerLink="/details"></ion-icon>
+      </ion-item>
+    </ion-item-group>
+  </ion-card>
+
+
+
+
+
+  
+
+</ion-content>
+
+
+
+
+
