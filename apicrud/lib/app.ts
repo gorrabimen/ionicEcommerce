@@ -55,48 +55,42 @@ class App {
 
         this.app.post('/product/save', upload.single('image'), function (req: any, res) {
             if (!req.file) {
-                console.log("No file is available!");
-                return res.status(400).send({
-                    message: "No file is available!"
-                });
+                return res.status(400).send({ message: "Aucun fichier n'est disponible !" });
             } else {
                 req.body.imageUrl = req.file.filename
                 console.log("req.body : ", req.body)
                 const Product = mongoose.model('Product', ProductSchema);
-                let newProduct = new Product(req.body);
-                newProduct.save((err, product) => {
+                let newDoc = new Product(req.body);
+                newDoc.save((err, product) => {
                     if (err) {
-                        console.error({ message: "Quelque chose s'est mal passé." })
+                        return res.status(500).send({ message: "Quelque chose s'est mal passé." });
                     }
                     console.log({ message: "Produit créé avec succès." });
-                    console.log("Product : ", product);
+                    console.log("newDoc : ", product);
+                    return res.send(newDoc);
                 });
-                console.log('File is available!');
-                return res.send(newProduct);
             }
         });
 
 
         this.app.post('/category/save', upload.single('image'), function (req: any, res) {
             if (!req.file) {
-                console.log("No file is available!");
                 return res.status(400).send({
-                    message: "No file is available!"
+                    message: "Aucun fichier n'est disponible !"
                 });
             } else {
                 req.body.imageUrl = req.file.filename
                 console.log("req.body : ", req.body)
                 const Categorie = mongoose.model('Categorie', CategorieSchema);
-                let newCategorie = new Categorie(req.body);
-                newCategorie.save((err, category) => {
+                let newDoc = new Categorie(req.body);
+                newDoc.save((err, category) => {
                     if (err) {
-                        console.error({ message: "Quelque chose s'est mal passé." })
+                        return res.status(500).send({ message: "Quelque chose s'est mal passé." });
                     }
                     console.log({ message: "Produit créé avec succès." });
-                    console.log("newCategorie : ", category);
+                    console.log("newDoc : ", newDoc);
+                    return res.send(newDoc);
                 });
-                console.log('File is available!');
-                return res.send(newCategorie);
             }
         });
     }

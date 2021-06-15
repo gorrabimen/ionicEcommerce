@@ -1,9 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/guard.service';
 import { PagesService } from 'src/app/services/pages.service';
+import { environment } from 'src/environments/environment';
+import { ToastService } from './toast.service';
 
 @Component({
   selector: 'app-admin',
@@ -18,10 +21,12 @@ export class AdminComponent implements OnInit {
   step = this.steps[0]
   constructor(
     private authService: AuthService,
+    private http: HttpClient,
     public formBuilder: FormBuilder,
     private pagesService: PagesService,
     public modalController: ModalController,
-    private router: Router
+    private router: Router,
+    public toastService: ToastService
   ) { }
 
   createProductForm() {
@@ -66,12 +71,35 @@ export class AdminComponent implements OnInit {
         console.log()
         formData.append(key, this.productForm.value[key]);
       });
+      if (this.productForm.valid) {
+        this.http.post(environment.apiUrl + "/product/save", this.productForm.value)
+          .subscribe((response: any) => {
+            if (response && !response.error) {
+              console.log("response : ", response);
+              this.toastService.presentToast('Votre produit a été enregistré.');
+            }
+          }, err => {
+            this.toastService.presentToast("Quelque chose s'est mal passé.");
+          })
+      }
+
     } else if (this.step.name == "category") {
       var formData = new FormData();
-      Object.keys(this.productForm.value).map(key => {
+      Object.keys(this.categoryForm.value).map(key => {
         console.log()
-        formData.append(key, this.productForm.value[key]);
+        formData.append(key, this.categoryForm.value[key]);
       });
+      if (this.categoryForm.valid) {
+        this.http.post(environment.apiUrl + "/category/save", this.categoryForm.value)
+          .subscribe((response: any) => {
+            if (response && !response.error) {
+              console.log("response : ", response);
+              this.toastService.presentToast('Votre catégorie a été enregistrée.');
+            }
+          }, err => {
+            this.toastService.presentToast("Quelque chose s'est mal passé.");
+          })
+      }
     };
   }
 

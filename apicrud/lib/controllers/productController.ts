@@ -5,15 +5,6 @@ import { Request, Response } from 'express';
 const Product = mongoose.model('Product', ProductSchema);
 export class ProductController {
 
-    public addNewArticle(req: Request, res: Response) {
-        let newArticle = new Product(req.body);
-        newArticle.save((err, article) => {
-            if (err) {
-                res.send(err);
-            }
-            res.json(article);
-        });
-    }
     public getArticles(req: Request, res: Response) {
         Product.find({}, (err, article) => {
             if (err) {

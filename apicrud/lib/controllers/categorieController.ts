@@ -5,17 +5,6 @@ import { Request, Response } from 'express';
 const Categorie = mongoose.model('Categorie', CategorieSchema);
 export class CategorieController {
 
-
-    public addNewCategorie(req: Request, res: Response) {
-        let newCategorie = new Categorie(req.body);
-
-        newCategorie.save((err, categorie) => {
-            if (err) {
-                res.send(err);
-            }
-            res.json(categorie);
-        });
-    }
     public getCategories(req: Request, res: Response) {
         Categorie.find({}, (err, categorie) => {
             if (err) {

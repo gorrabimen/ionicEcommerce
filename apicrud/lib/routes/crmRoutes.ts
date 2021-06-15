@@ -26,51 +26,22 @@ export class Routes {
             .put(this.userController.update)
             .delete(this.userController.delete)
 
-        // Article
-        app.route('/product')
-            // list all
-            .get(this.productController.getArticles)
-            // Create a new article
-            .post(this.productController.addNewArticle);
-
+        // Get ALl Products
+        app.route('/product').get(this.productController.getArticles)
 
         // get a specific article , update, delete
         app.route('/product/:productId')
             .get(this.productController.getArticleWithID)
             .put(this.productController.updateArticle)
             .delete(this.productController.deleteArticle)
-        // Article
-        app.route('/product')
-            // list all
-            .get(this.productController.getArticles)
-            // Create a new article
-            .post(this.productController.addNewArticle);
 
-
-        // get a specific article , update, delete
-        app.route('/product/:productId')
-            .get(this.productController.getArticleWithID)
-            .put(this.productController.updateArticle)
-            .delete(this.productController.deleteArticle)
-        // Categorie
-
-
-        app.route('/category')
-            .get(this.categorieController.getCategories)
-            .post(this.categorieController.addNewCategorie);
-
+        app.route('/category').get(this.categorieController.getCategories)
 
         // get a specific category , update, delete
         app.route('/category/:categorieId')
             .get(this.categorieController.getCategorieWithID)
             .put(this.categorieController.updateCategorie)
             .delete(this.categorieController.deleteCategorie)
-        // TypeVente
-        //  app.route('/typevente')
-        //  // list all
-        //  .get(this.typeventeController.getTypeVentes)
-        //  // Create a new typevente
-        //  .post(this.typeventeController.addNewTypeVente);
 
     }
 }

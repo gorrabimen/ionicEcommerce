@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 export const CategorieSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: true,
     },
     imageUrl: {
         type: String,
