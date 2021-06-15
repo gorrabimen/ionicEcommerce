@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { ArticleController } from "../controllers/articleController";
+import { ProductController } from "../controllers/productController";
 import { CategorieController } from "../controllers/categorieController";
 import { UserController } from "../controllers/userController";
 export class Routes {
-    public articleController: ArticleController = new ArticleController();
+    public productController: ProductController = new ProductController();
     public categorieController: CategorieController = new CategorieController();
     public userController: UserController = new UserController();
 
@@ -23,41 +23,41 @@ export class Routes {
         app.route('/user/login').post(this.userController.login)
         app.route('/user/register').post(this.userController.register)
         app.route('/user')
-        .put(this.userController.update)
-        .delete(this.userController.delete)
+            .put(this.userController.update)
+            .delete(this.userController.delete)
 
         // Article
-        app.route('/article')
+        app.route('/product')
             // list all
-            .get(this.articleController.getArticles)
+            .get(this.productController.getArticles)
             // Create a new article
-            .post(this.articleController.addNewArticle);
+            .post(this.productController.addNewArticle);
 
 
         // get a specific article , update, delete
-        app.route('/article/:articleId')
-            .get(this.articleController.getArticleWithID)
-            .put(this.articleController.updateArticle)
-            .delete(this.articleController.deleteArticle)
+        app.route('/product/:productId')
+            .get(this.productController.getArticleWithID)
+            .put(this.productController.updateArticle)
+            .delete(this.productController.deleteArticle)
         // Article
-        app.route('/article')
+        app.route('/product')
             // list all
-            .get(this.articleController.getArticles)
+            .get(this.productController.getArticles)
             // Create a new article
-            .post(this.articleController.addNewArticle);
+            .post(this.productController.addNewArticle);
 
 
         // get a specific article , update, delete
-        app.route('/article/:articleId')
-            .get(this.articleController.getArticleWithID)
-            .put(this.articleController.updateArticle)
-            .delete(this.articleController.deleteArticle)
+        app.route('/product/:productId')
+            .get(this.productController.getArticleWithID)
+            .put(this.productController.updateArticle)
+            .delete(this.productController.deleteArticle)
         // Categorie
-        app.route('/categorie')
-            // list all
-            .get(this.categorieController.getCategories)
-            // Create a new categorie
-            .post(this.categorieController.addNewCategorie);
+
+
+        app.route('/categorie').get(this.categorieController.getCategories)
+
+        app.route('/categorie').post(this.categorieController.addNewCategorie);
 
 
         // get a specific categorie , update, delete

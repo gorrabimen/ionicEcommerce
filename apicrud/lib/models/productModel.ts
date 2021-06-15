@@ -2,40 +2,29 @@ import * as mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-export const ArticleSchema = new Schema({
+export const ProductSchema = new Schema({
     name: {
         type: String,
         required: 'Enter a name'
     },
-    prix: {
+    price: {
         type: Number,
         required: 'Enter a price'
     },
-    categorie: {
+    category: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:'Categorie',
-        required: 'Enter a category'
+        ref: 'Categorie',
     },
-    typeVente: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'TypeVente',
-    },
-    imgUrl: {
+    imageUrl: {
         type: String,
         required: 'Enter an img URL'
     },
-      active: {
+    active: {
         type: Boolean,
         default: true
-    } ,
-   
+    },
     description: {
         type: String,
         default: ''
     }
-}, 
- {timestamps:  {
-        createdAt:"crAt",
-        updatedAt:"upAt"
-    }
-});
+}, { timestamps: true });

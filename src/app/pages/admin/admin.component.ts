@@ -64,20 +64,20 @@ export class AdminComponent implements OnInit {
     this.steps = [
       {
         line: 1,
-        step: "Ajouter Produit",
+        step: "Produits",
         name: 'product',
         isSelected: true
       },
       {
         line: 2,
 
-        step: "Ajouter Categorie",
+        step: "Categories",
         name: 'category',
         isSelected: false
       },
       {
         line: 3,
-        step: "List Utilisateur",
+        step: "Utilisateurs",
         name: 'user',
         isSelected: false
       }

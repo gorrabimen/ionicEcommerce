@@ -3,6 +3,11 @@ import * as bodyParser from "body-parser";
 import { Routes } from "./routes/crmRoutes";
 import * as mongoose from "mongoose";
 import * as cors from "cors";
+import { getExtension } from "mime";
+var multer = require('multer')
+// var upload = multer({ dest: 'uploads/' })
+global.crypto = require('crypto')
+
 class App {
 
     public app: express.Application;
@@ -31,6 +36,41 @@ class App {
         this.app.use(bodyParser.json());
         //support application/x-www-form-urlencoded post data
         this.app.use(bodyParser.urlencoded({ extended: false }));
+
+        this.app.use(express.static('uploads'));
+        // this.app.use('/uploads', express.static('uploads'));
+
+        var multer = require('multer')
+        // var upload = multer({ dest: 'uploads/' })
+        let storage = multer.diskStorage({
+            destination: (req, file, cb) => {
+                cb(null, 'uploads/');
+            },
+            filename: (req, file, cb) => {
+                console.log("file : ", file)
+                cb(null, file.fieldname + '-' + Date.now() + '.' + file.originalname.split(".")[1])
+            }
+        });
+
+        let upload = multer({
+            storage: storage
+        });
+
+
+        this.app.post('/api/upload', upload.single('image'), function (req: any, res) {
+            if (!req.file) {
+                console.log("No file is available!");
+                return res.send({
+                    success: false
+                });
+
+            } else {
+                console.log('File is available!');
+                return res.send({
+                    success: true
+                })
+            }
+        });
     }
 }
 
