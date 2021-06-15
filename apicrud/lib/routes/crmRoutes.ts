@@ -55,13 +55,13 @@ export class Routes {
         // Categorie
 
 
-        app.route('/categorie').get(this.categorieController.getCategories)
+        app.route('/category')
+            .get(this.categorieController.getCategories)
+            .post(this.categorieController.addNewCategorie);
 
-        app.route('/categorie').post(this.categorieController.addNewCategorie);
 
-
-        // get a specific categorie , update, delete
-        app.route('/categorie/:categorieId')
+        // get a specific category , update, delete
+        app.route('/category/:categorieId')
             .get(this.categorieController.getCategorieWithID)
             .put(this.categorieController.updateCategorie)
             .delete(this.categorieController.deleteCategorie)

@@ -3,11 +3,7 @@ import * as bodyParser from "body-parser";
 import { Routes } from "./routes/crmRoutes";
 import * as mongoose from "mongoose";
 import * as cors from "cors";
-import { getExtension } from "mime";
-var multer = require('multer')
-// var upload = multer({ dest: 'uploads/' })
-global.crypto = require('crypto')
-
+import { ProductSchema } from "./models/productModel";
 class App {
 
     public app: express.Application;
@@ -47,7 +43,6 @@ class App {
                 cb(null, 'uploads/');
             },
             filename: (req, file, cb) => {
-                console.log("file : ", file)
                 cb(null, file.fieldname + '-' + Date.now() + '.' + file.originalname.split(".")[1])
             }
         });
@@ -57,18 +52,26 @@ class App {
         });
 
 
-        this.app.post('/api/upload', upload.single('image'), function (req: any, res) {
+        this.app.post('/product/save', upload.single('image'), function (req: any, res) {
             if (!req.file) {
                 console.log("No file is available!");
-                return res.send({
-                    success: false
+                return res.status(400).send({
+                    message: "No file is available!"
                 });
-
             } else {
+                req.body.imageUrl = req.file.filename
+                console.log("req.body : ", req.body)
+                const Product = mongoose.model('Product', ProductSchema);
+                let newProduct = new Product(req.body);
+                newProduct.save((err, product) => {
+                    if (err) {
+                        console.error({ message: "Quelque chose s'est mal passé." })
+                    }
+                    console.log({ message: "Produit créé avec succès." });
+                    console.log("Product : ", product);
+                });
                 console.log('File is available!');
-                return res.send({
-                    success: true
-                })
+                return res.send(newProduct);
             }
         });
     }
