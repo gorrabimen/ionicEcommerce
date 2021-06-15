@@ -34,9 +34,8 @@
       <h2>Bonjour!</h2>
       <p>Merci d'insérer votre compte</p>
     </ion-label>
-    <ion-button *ngIf="authService.isAuthenticated()" color="color1" size="small" (click)="signout()">Se déconnecter</ion-button>
+    <ion-button *ngIf="authService.isAuthenticated()" color="color1" size="small" (click)="authService.signout()">Se déconnecter</ion-button>
   </ion-item>
-  <!-- Some Menu Options 
   <ion-card>
     <ion-grid>
       <ion-row class="ion-text-center">

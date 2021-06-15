@@ -15,6 +15,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { PagesService } from './services/pages.service';
+import { AuthService } from './services/guard.service';
 
 @Component({
   selector: 'app-root',
@@ -30,7 +31,7 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private menuController: MenuController,
+    private authService: AuthService,
     private router: Router,
     private pagesService: PagesService
   ) {
@@ -49,19 +50,9 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-
-      // Get Menus For Side Menu
-      this.appPages = this.pagesService.getPages();
     });
   }
 
-  // Signout Button
-  signout() {
-    localStorage.setItem("loggedIn", '-1')
-    localStorage.removeItem("userId")
-    this.router.navigate(['/signin']);
-    this.menuController.enable(false); // Make Sidemenu disable
-  }
   signin() {
     this.router.navigate(['/signin'])
   }

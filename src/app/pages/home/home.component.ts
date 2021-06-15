@@ -8,6 +8,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GetApiService } from 'src/app/get-api.service';
+import { AuthService } from 'src/app/services/guard.service';
 
 @Component({
   selector: 'app-home',
@@ -15,16 +16,17 @@ import { GetApiService } from 'src/app/get-api.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  
-  
-  
 
-  constructor(private router: Router,
-    ) { }
-    
-  ngOnInit()
-  {
-  
+
+
+
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) { }
+
+  ngOnInit() {
+
   }
   // Go to cart page
   async gotoCartPage() {

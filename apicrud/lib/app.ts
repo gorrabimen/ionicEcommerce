@@ -7,7 +7,7 @@ class App {
 
     public app: express.Application;
     public routePrv: Routes = new Routes();
-   // public mongoUrl: string = 'mongodb://10.10.10.8:27017/CRMdb';
+    // public mongoUrl: string = 'mongodb://10.10.10.8:27017/CRMdb';
     // public mongoUrl: string = 'mongodb://127.0.0.1:27017/testpfe';
     public mongoUrl: string = 'mongodb+srv://test:testtest@test1.fnyba.mongodb.net/testpfe?retryWrites=true&w=majority';
     constructor() {
@@ -17,41 +17,21 @@ class App {
         this.mongoSetup();
     }
 
-    private mongoSetup(): void{
+    private mongoSetup(): void {
         (mongoose as any).Promise = global.Promise;
-        mongoose.connect(this.mongoUrl,{useNewUrlParser:true,useUnifiedTopology:true});
+        mongoose.connect(this.mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+        // require('./seed/seed.ts');
     }
 
-    private config(): void{
+    private config(): void {
         //accept allcors request
-       this.app.use(cors());
-       //this.configCors();
+        this.app.use(cors());
+        //this.configCors();
         // support application/json type post data
         this.app.use(bodyParser.json());
         //support application/x-www-form-urlencoded post data
         this.app.use(bodyParser.urlencoded({ extended: false }));
     }
-  /*  private configCors():void{
-        this.app.use(function (req, res, next) {
-
-            // Website you wish to allow to connect
-            res.setHeader('Access-Control-Allow-Origin', '*');
-        
-            // Request methods you wish to allow
-            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-        
-            // Request headers you wish to allow
-            res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-        
-            // Set to true if you need the website to include cookies in the requests sent
-            // to the API (e.g. in case you use sessions)
-           // res.setHeader('Access-Control-Allow-Credentials', true);
-        
-            // Pass to next layer of middleware
-            next();
-        });
-    }
-*/
 }
 
 export default new App().app;

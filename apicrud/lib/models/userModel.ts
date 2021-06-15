@@ -20,6 +20,10 @@ export const UserSchema = new Schema({
     gender: {
         type: String,
     },
+    role: {
+        type: String,
+        default: "user"
+    },
     password: {
         type: String,
         required: true

@@ -15,14 +15,33 @@
     </ion-buttons>
 
     <!-- Title of the app -->
-    <ion-title>Application E-commerce</ion-title>
+    <ion-title>Acceuil</ion-title>
 
     <!-- Cart Button Option -->
-    <ion-buttons slot="end">
+    <ion-buttons slot="end" *ngIf="authService.isAdmin()">
+      <ion-button color="white" routerLink="/admin" routerDirection="root">
+        <ion-icon name="home"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end" *ngIf="!authService.isAuthenticated()">
+      <ion-button color="white" routerLink="/signin" routerDirection="root">
+        <ion-icon name="log-in-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end" *ngIf="authService.isAuthenticated()">
       <ion-button color="white" (click)="gotoCartPage()">
         <ion-icon name="cart"></ion-icon>
       </ion-button>
     </ion-buttons>
+
+    <ion-buttons slot="end" *ngIf="authService.isAuthenticated()" (click)="authService.signout()">
+      <ion-button color="white" routerLink="/signin" routerDirection="root">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 

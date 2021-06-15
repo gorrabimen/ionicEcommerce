@@ -20,11 +20,4 @@ export class AccountComponent implements OnInit {
   updateMode() {
     this.modeUpdate = !this.modeUpdate
   }
-
-  signout() {
-    localStorage.setItem("loggedIn", '-1')
-    localStorage.removeItem("userId")
-    this.router.navigate(['/signin']);
-    this.menuController.enable(false); // Make Sidemenu disable
-  }
 }

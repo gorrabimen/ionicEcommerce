@@ -1,3 +1,4 @@
+import { AuthService } from './guard.service';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,62 +6,63 @@ import { Injectable } from '@angular/core';
 })
 export class PagesService {
 
-  constructor() { }
+  constructor(private authService: AuthService) { this.getPages() }
+  appPages
 
   getPages() {
-    return [
+
+    const userPages = () => [{
+      title: 'Acceuil',
+      url: '/tabs/tab1',
+      icon: 'basket-outline'
+    },
+    {
+      title: 'Catégories',
+      url: '/tabs/categories',
+      icon: 'grid-outline'
+    },
+
+
+    {
+      title: 'Offres',
+      url: '/tabs/tab2',
+      icon: 'gift-outline'
+    },]
+
+    const filterTabs = () => this.authService.isAdmin() ? [
       {
-        title: 'Accueil',
-        url: '/tabs/tab1',
-        icon: 'home'
-      },
-      {
-        title: 'Catégories',
-        url: '/tabs/categories',
-        icon: 'grid'
-      },
-     
-      
-      {
-        title: 'Offres',
-        url: '/tabs/tab2',
-        icon: 'gift'
-      },
-      {
-        title: 'Favorise',
-        url: '/tabs/tab3',
-        icon: 'heart'
-      },
-      {
-        title: 'Notification',
-        url: '/tabs/tab4',
-        icon: 'notifications-outline'
+        title: 'Dashboard',
+        url: '/admin',
+        icon: 'home-outline'
       },
       {
-        title: 'Caisse',
-        url: '/checkout',
-        icon: 'checkbox'
+        title: 'Products',
+        url: '/admin/products',
+        icon: 'albums-outline'
       },
-      {
-        //title: 'details',
-        //url: '/details',
-        //icon: 'checkmark-circle-outline'
-      },
-      {
-        //title: 'Cart',
-         //url: '/cart',
-         //icon: 'cart'
-       },
-       {
-        //title: 'Search',
-        //url: '/tabs/search',
-        //icon: 'search'
-      },
-       {
-        //title: 'Magasin',
-        //url: '/tabs/products',
-        //icon: 'basket'
-      },
-    ];
+      ...userPages()
+    ] : userPages();
+
+    this.appPages = filterTabs();
+    // = [
+    //   ...filterTabs(),
+
+    //   // {
+    //   //   title: 'Favorise',
+    //   //   url: '/tabs/tab3',
+    //   //   icon: 'heart'
+    //   // },
+    //   // {
+    //   //   title: 'Caisse',
+    //   //   url: '/checkout',
+    //   //   icon: 'checkbox'
+    //   // },
+
+    //   //  {
+    //   //   //title: 'Magasin',
+    //   //   //url: '/tabs/products',
+    //   //   //icon: 'basket'
+    //   // },
+    // ];
   }
 }

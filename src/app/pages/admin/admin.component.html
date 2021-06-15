@@ -1,0 +1,151 @@
+<!--
+  - Home Screen
+  - @author    ThemesBuckets <themebucketbd@gmail.com>
+  - @copyright Copyright (c) 2020
+  - @license   ThemesBuckets
+-->
+
+<!-- Header -->
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar color="color1">
+
+    <!-- Menu Option -->
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <!-- Title of the app -->
+    <ion-title>Admin</ion-title>
+
+    <!-- Cart Button Option -->
+    <ion-buttons slot="end">
+      <ion-button color="white" (click)="authService.signout()">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Contents -->
+
+<!-- Contents -->
+<ion-content [scrollEvents]="true" id="admin">
+
+  <!-- Steps of Checkout, steps are - (Billing, Payment, Confirm) -->
+  <ion-grid class="ion-padding">
+    <ion-row class="ion-text-center">
+      <ng-container *ngFor="let item of steps">
+        <ion-col (click)="next(item.name)" [ngClass]="{selected: item.isSelected}">
+          <ion-icon name="radio-button-on" style="zoom:1.5;" [hidden]="!item.isSelected"></ion-icon>
+          <ion-icon name="radio-button-off" style="zoom:1.5;" [hidden]="item.isSelected"></ion-icon>
+          <br />
+          <ion-text>{{item.step}}</ion-text>
+        </ion-col>
+      </ng-container>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Content of Checkout Steps -->
+
+  <!-- Billing Section -->
+  <div id="billing" *ngIf="steps[0].isSelected">
+
+    <form class="ion-padding">
+      <!-- Full Name -->
+      <ion-item>
+        <ion-input type="text" placeholder="Nom&prénom" name="name"></ion-input>
+      </ion-item>
+
+      <!-- Address 1 -->
+      <ion-item class="ion-padding-top">
+        <ion-input type="text" placeholder="Adresse 1" name="adresse1"></ion-input>
+      </ion-item>
+
+      <!-- Address 2 -->
+      <ion-item class="ion-padding-top">
+        <ion-input type="text" placeholder="Adresse 2" name="adresse2"></ion-input>
+      </ion-item>
+
+      <ion-row>
+        <ion-col>
+          <!-- City -->
+          <ion-item class="ion-padding-top">
+            <ion-input type="text" placeholder="Ville" name="Ville"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <!-- State -->
+          <ion-item class="ion-padding-top">
+            <ion-input type="text" placeholder="state" name="state"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <!-- Zip Code -->
+      <ion-item class="ion-padding-top">
+        <ion-input type="text" placeholder="Code postal" name="Zip Code"></ion-input>
+      </ion-item>
+    </form>
+  </div>
+  <!-- End billing section -->
+
+  <!-- Payment Section -->
+  <div id="payment" *ngIf="steps[1].isSelected">
+    <!-- Card Information Form -->
+    <form class="ion-padding">
+      <!-- Cardholder Name -->
+      <ion-item>
+        <ion-input type="text" placeholder="Nom du titulaire" name="name"></ion-input>
+      </ion-item>
+
+      <!-- Card Number -->
+      <ion-item class="ion-padding-top">
+        <ion-input type="text" placeholder="Numéro de carte" name="cardnumber"></ion-input>
+      </ion-item>
+
+      <ion-row>
+        <ion-col>
+          <!-- MM -->
+          <ion-item class="ion-padding-top">
+            <ion-input type="text" placeholder="MM" name="mm"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <!-- YY -->
+          <ion-item class="ion-padding-top">
+            <ion-input type="text" placeholder="YY" name="yy"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <!-- CVV -->
+      <ion-item class="ion-padding-top">
+        <ion-input type="text" placeholder="CVV" name="cvv"></ion-input>
+      </ion-item>
+    </form>
+  </div>
+
+  <!-- Payment Complete Section -->
+  <!-- Confirm Screen -->
+  <div id="complete-section" *ngIf="steps[2].isSelected" style="height: 70%">
+    <ion-grid class="ion-padding" style="height: 100%">
+      <ion-row class="ion-align-items-center ion-justify-content-center" style="height: 100%; flex-direction: column">
+        <div class="ion-text-center ion-padding">
+          <ion-icon name="checkmark-outline" style="zoom:10.0;" color="medium"></ion-icon>
+          <h2>Commande réussie</h2>
+          <p>Votre commande a été passée avec succès</p>
+        </div>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
+
+<!-- Footer -->
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="ion-padding" transparent>
+
+    <!-- Go To Next Section Button Option  -->
+    <!-- This button only visible Step 1 & 2 -->
+    <ion-button color="color1" expand="block" (click)="submit()">Ajouter</ion-button>
+  </ion-toolbar>
+</ion-footer>

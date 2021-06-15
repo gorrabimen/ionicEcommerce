@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MenuController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/guard.service';
 
 @Component({
   selector: 'app-tabs',
@@ -8,8 +9,8 @@ import { MenuController } from '@ionic/angular';
 })
 export class TabsPage {
 
-  constructor(private menuController: MenuController) {
-    this.menuController.enable(true); // Enable side menu
+  constructor(
+    private menuController: MenuController,
+    private authService: AuthService
+    ) {}
   }
-
-}

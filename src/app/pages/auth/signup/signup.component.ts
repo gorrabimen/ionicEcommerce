@@ -38,13 +38,13 @@ export class SignupComponent implements OnInit {
       this.http.post(environment.apiUrl + "/user/register", this.userForm)
         .subscribe(response => {
           console.log("response : ", response)
-          alert('Compte créé avec succès.')
+          console.log('Compte créé avec succès.')
           this.goToSignIn();
         }, err => {
           console.error("Quelque chose s'est mal passé.")
         })
     } else {
-      alert(`Veuillez saisir des informations valides.`)
+      console.error(`Veuillez saisir des informations valides.`)
     }
   }
 

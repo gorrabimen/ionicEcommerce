@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/guard.service';
 import { environment } from 'src/environments/environment';
+import { PagesService } from 'src/app/services/pages.service';
 
 @Component({
   selector: 'app-signin',
@@ -15,6 +16,7 @@ export class SigninComponent implements OnInit {
   constructor(private router: Router,
     private menuController: MenuController,
     private authService: AuthService,
+    private pagesService: PagesService,
     private http: HttpClient) {
     if (this.authService.isAuthenticated()) { this.goToHome(); }
   }
@@ -28,6 +30,10 @@ export class SigninComponent implements OnInit {
 
   goToHome() {
     this.router.navigate(['/tabs/tab1']);
+  }
+
+  goToAdmin() {
+    this.router.navigate(['/admin']);
   }
 
   submit() {
@@ -45,19 +51,27 @@ export class SigninComponent implements OnInit {
             console.log("response : ", response);
             localStorage.setItem("userId", response._id);
             localStorage.setItem("loggedIn", "1");
-            alert('Vous êtes connecté avec succès.');
+            console.log('Vous êtes connecté avec succès.');
             this.menuController.enable(true);
-            this.goToHome();
+            if (response.role == "user") {
+              this.pagesService.getPages()
+              localStorage.setItem("role", response.role)
+              this.goToHome();
+            } else if (response.role == "admin") {
+              localStorage.setItem("role", response.role)
+              this.pagesService.getPages()
+              this.goToAdmin();
+            }
           } else if (response && response.Error == 400) {
-            alert(`Veuillez saisir des informations valides.`);
+            console.error(`Veuillez saisir des informations valides.`);
           } else {
-            alert("Quelque chose s'est mal passé.");
+            console.error("Quelque chose s'est mal passé.");
           }
         }, err => {
-          alert("Quelque chose s'est mal passé.");
+          console.error("Quelque chose s'est mal passé.");
         })
     } else {
-      alert(`Veuillez saisir des informations valides.`);
+      console.error(`Veuillez saisir des informations valides.`);
     }
   }
 }
