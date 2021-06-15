@@ -1,11 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { AdminService } from './admin.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/guard.service';
 import { PagesService } from 'src/app/services/pages.service';
-import { environment } from 'src/environments/environment';
 import { ToastService } from './toast.service';
 
 @Component({
@@ -14,25 +13,56 @@ import { ToastService } from './toast.service';
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements OnInit {
-  steps: any = [];
-  cards: any = [];
+  categories: any = [];
+  steps: any = [
+    {
+      step: "Ajouter Un Produit",
+      name: 'product',
+      isSelected: true
+    },
+    {
+      step: "Ajouter Une Category",
+      name: 'category',
+      isSelected: false
+    }
+  ];
+  step = this.steps[0];
   productForm: FormGroup;
   categoryForm: FormGroup;
-  step = this.steps[0]
+
   constructor(
     private authService: AuthService,
-    private http: HttpClient,
+    private adminService: AdminService,
     public formBuilder: FormBuilder,
     private pagesService: PagesService,
     public modalController: ModalController,
     private router: Router,
-    public toastService: ToastService
-  ) { }
+    public toastService: ToastService) {
+    this.createProductForm();
+    this.createCategoryForm();
+    this.getCategories();
+  }
+
+  ngOnInit() {
+    this.pagesService.getPages();
+  }
+
+  getCategories() {
+    this.adminService.getCategories()
+      .subscribe((response: any) => {
+        if (response && !response.error) {
+          console.log("response : ", response);
+          this.categories = response;
+        }
+      }, (err: any) => {
+        this.toastService.presentToast("Quelque chose s'est mal passé.");
+      });
+  }
 
   createProductForm() {
     this.productForm = this.formBuilder.group({
       name: ['', Validators.required],
-      price: ['', Validators.required],
+      price: [0, Validators.required],
       description: [''],
       image: [null, Validators.required],
       category: ['', Validators.required]
@@ -68,37 +98,41 @@ export class AdminComponent implements OnInit {
     if (this.step.name == "product") {
       var formData = new FormData();
       Object.keys(this.productForm.value).map(key => {
-        console.log()
-        formData.append(key, this.productForm.value[key]);
+        console.log("key : ", key)
+        console.log("value : ", this.productForm.get(key).value);
+        formData.append(key, this.productForm.get(key).value);
       });
       if (this.productForm.valid) {
-        this.http.post(environment.apiUrl + "/product/save", this.productForm.value)
+        this.adminService.createProduct(formData)
           .subscribe((response: any) => {
             if (response && !response.error) {
               console.log("response : ", response);
               this.toastService.presentToast('Votre produit a été enregistré.');
+              this.createProductForm();
             }
           }, err => {
             this.toastService.presentToast("Quelque chose s'est mal passé.");
-          })
+          });
       }
 
     } else if (this.step.name == "category") {
       var formData = new FormData();
       Object.keys(this.categoryForm.value).map(key => {
-        console.log()
-        formData.append(key, this.categoryForm.value[key]);
+        console.log("key : ", key)
+        console.log("value : ", this.categoryForm.get(key).value);
+        formData.append(key, this.categoryForm.get(key).value);
       });
       if (this.categoryForm.valid) {
-        this.http.post(environment.apiUrl + "/category/save", this.categoryForm.value)
+        this.adminService.createCategory(formData)
           .subscribe((response: any) => {
             if (response && !response.error) {
               console.log("response : ", response);
               this.toastService.presentToast('Votre catégorie a été enregistrée.');
+              this.createCategoryForm();
             }
-          }, err => {
+          }, (err: any) => {
             this.toastService.presentToast("Quelque chose s'est mal passé.");
-          })
+          });
       }
     };
   }
@@ -129,30 +163,4 @@ export class AdminComponent implements OnInit {
   dismiss() {
     this.router.navigate(['/tabs/tab1']);
   }
-
-  ngOnInit() {
-    this.pagesService.getPages();
-    // Checkout steps
-    this.steps = [
-      {
-        line: 1,
-        step: "Ajouter Un Produit",
-        name: 'product',
-        isSelected: true
-      },
-      {
-        line: 2,
-
-        step: "Ajouter Une Category",
-        name: 'category',
-        isSelected: false
-      }
-    ]
-
-    // Payment cards images
-    this.cards = ["assets/images/cards/visa.png",
-      "assets/images/cards/mastercard.png",
-      "assets/images/cards/paypal.png"]
-  }
-
 }

@@ -14,17 +14,18 @@ export const ProductSchema = new Schema({
     category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Categorie',
+        required: true
     },
     imageUrl: {
         type: String,
-        required: 'Enter an img URL'
+        required: 'Enter an img URL',
+    },
+    description: {
+        type: String,
+        default: ''
     },
     active: {
         type: Boolean,
         default: true
     },
-    description: {
-        type: String,
-        default: ''
-    }
 }, { timestamps: true });

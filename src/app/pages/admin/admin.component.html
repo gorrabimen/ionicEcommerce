@@ -50,7 +50,7 @@
   <!-- Billing Section -->
   <div id="billing" *ngIf="steps[0].isSelected">
 
-    <form class="ion-padding">
+    <form class="ion-padding" [formGroup]="productForm">
 
       <ion-button color="color1" expand="block">
         <ion-icon lazy="true" slot="start" name="image"></ion-icon>
@@ -60,15 +60,23 @@
       </ion-button>
 
       <ion-item>
-        <ion-input type="text" placeholder="Nom" name="name"></ion-input>
+        <ion-label>Categorie</ion-label>
+        <ion-select placeholder="Select Category" formControlName="category">
+          <ion-select-option *ngFor="let item of categories" [value]="item._id">{{item.name}}</ion-select-option>
+        </ion-select>
       </ion-item>
 
       <ion-item>
-        <ion-input type="number" placeholder="Price" name="price"></ion-input>
+        <ion-input type="text" placeholder="Nom" formControlName="name" name="name"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-textarea type="text" placeholder="Description" name="description"></ion-textarea>
+        <ion-input type="number" placeholder="Price" formControlName="price" name="price"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-textarea type="text" placeholder="Description" formControlName="description" name="description">
+        </ion-textarea>
       </ion-item>
 
     </form>
@@ -78,7 +86,7 @@
   <!-- Payment Section -->
   <div id="payment" *ngIf="steps[1].isSelected">
     <!-- Card Information Form -->
-    <form class="ion-padding">
+    <form class="ion-padding" [formGroup]="categoryForm">
 
       <ion-button color="color1" expand="full">
         <ion-icon lazy="true" slot="start" name="image"></ion-icon>
@@ -88,12 +96,14 @@
       </ion-button>
 
       <ion-item>
-        <ion-input type="text" placeholder="Nom du catégorie" name="name"></ion-input>
+        <ion-input type="text" placeholder="Nom du catégorie" formControlName="name" name="name"></ion-input>
       </ion-item>
 
     </form>
   </div>
   <!-- Footer -->
   <div class="ion-padding">
-    <ion-button color="color1" expand="block" (click)="submit()">Ajouter</ion-button>
+    <ion-button color="color1" expand="block" (click)="submit()"
+      [disabled]="(step?.name == 'category' && categoryForm.invalid) || (step?.name == 'product' && productForm.invalid)">
+      Ajouter</ion-button>
   </div>
