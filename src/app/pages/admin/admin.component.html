@@ -51,40 +51,26 @@
   <div id="billing" *ngIf="steps[0].isSelected">
 
     <form class="ion-padding">
-      <!-- Full Name -->
+
+      <ion-button color="color1" expand="block">
+        <ion-icon lazy="true" slot="start" name="image"></ion-icon>
+        <ion-label slot="end">Upload Image</ion-label>
+        <input type="file" (change)="loadImageFromDevice($event)" id="file-input-produit"
+          accept="image/png, image/jpeg">
+      </ion-button>
+
       <ion-item>
-        <ion-input type="text" placeholder="Nom&prénom" name="name"></ion-input>
+        <ion-input type="text" placeholder="Nom" name="name"></ion-input>
       </ion-item>
 
-      <!-- Address 1 -->
-      <ion-item class="ion-padding-top">
-        <ion-input type="text" placeholder="Adresse 1" name="adresse1"></ion-input>
+      <ion-item>
+        <ion-input type="number" placeholder="Price" name="price"></ion-input>
       </ion-item>
 
-      <!-- Address 2 -->
-      <ion-item class="ion-padding-top">
-        <ion-input type="text" placeholder="Adresse 2" name="adresse2"></ion-input>
+      <ion-item>
+        <ion-textarea type="text" placeholder="Description" name="description"></ion-textarea>
       </ion-item>
 
-      <ion-row>
-        <ion-col>
-          <!-- City -->
-          <ion-item class="ion-padding-top">
-            <ion-input type="text" placeholder="Ville" name="Ville"></ion-input>
-          </ion-item>
-        </ion-col>
-        <ion-col>
-          <!-- State -->
-          <ion-item class="ion-padding-top">
-            <ion-input type="text" placeholder="state" name="state"></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-
-      <!-- Zip Code -->
-      <ion-item class="ion-padding-top">
-        <ion-input type="text" placeholder="Code postal" name="Zip Code"></ion-input>
-      </ion-item>
     </form>
   </div>
   <!-- End billing section -->
@@ -93,59 +79,21 @@
   <div id="payment" *ngIf="steps[1].isSelected">
     <!-- Card Information Form -->
     <form class="ion-padding">
-      <!-- Cardholder Name -->
+
+      <ion-button color="color1" expand="full">
+        <ion-icon lazy="true" slot="start" name="image"></ion-icon>
+        <ion-label slot="end">Upload Image</ion-label>
+        <input type="file" (change)="loadImageFromDevice($event)" id="file-input-category"
+          accept="image/png, image/jpeg">
+      </ion-button>
+
       <ion-item>
-        <ion-input type="text" placeholder="Nom du titulaire" name="name"></ion-input>
+        <ion-input type="text" placeholder="Nom du catégorie" name="name"></ion-input>
       </ion-item>
 
-      <!-- Card Number -->
-      <ion-item class="ion-padding-top">
-        <ion-input type="text" placeholder="Numéro de carte" name="cardnumber"></ion-input>
-      </ion-item>
-
-      <ion-row>
-        <ion-col>
-          <!-- MM -->
-          <ion-item class="ion-padding-top">
-            <ion-input type="text" placeholder="MM" name="mm"></ion-input>
-          </ion-item>
-        </ion-col>
-        <ion-col>
-          <!-- YY -->
-          <ion-item class="ion-padding-top">
-            <ion-input type="text" placeholder="YY" name="yy"></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-
-      <!-- CVV -->
-      <ion-item class="ion-padding-top">
-        <ion-input type="text" placeholder="CVV" name="cvv"></ion-input>
-      </ion-item>
     </form>
   </div>
-
-  <!-- Payment Complete Section -->
-  <!-- Confirm Screen -->
-  <div id="complete-section" *ngIf="steps[2].isSelected" style="height: 70%">
-    <ion-grid class="ion-padding" style="height: 100%">
-      <ion-row class="ion-align-items-center ion-justify-content-center" style="height: 100%; flex-direction: column">
-        <div class="ion-text-center ion-padding">
-          <ion-icon name="checkmark-outline" style="zoom:10.0;" color="medium"></ion-icon>
-          <h2>Commande réussie</h2>
-          <p>Votre commande a été passée avec succès</p>
-        </div>
-      </ion-row>
-    </ion-grid>
-  </div>
-</ion-content>
-
-<!-- Footer -->
-<ion-footer class="ion-no-border">
-  <ion-toolbar class="ion-padding" transparent>
-
-    <!-- Go To Next Section Button Option  -->
-    <!-- This button only visible Step 1 & 2 -->
+  <!-- Footer -->
+  <div class="ion-padding">
     <ion-button color="color1" expand="block" (click)="submit()">Ajouter</ion-button>
-  </ion-toolbar>
-</ion-footer>
+  </div>

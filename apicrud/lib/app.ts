@@ -4,6 +4,7 @@ import { Routes } from "./routes/crmRoutes";
 import * as mongoose from "mongoose";
 import * as cors from "cors";
 import { ProductSchema } from "./models/productModel";
+import { CategorieSchema } from "./models/categorieModel";
 class App {
 
     public app: express.Application;
@@ -72,6 +73,30 @@ class App {
                 });
                 console.log('File is available!');
                 return res.send(newProduct);
+            }
+        });
+
+
+        this.app.post('/category/save', upload.single('image'), function (req: any, res) {
+            if (!req.file) {
+                console.log("No file is available!");
+                return res.status(400).send({
+                    message: "No file is available!"
+                });
+            } else {
+                req.body.imageUrl = req.file.filename
+                console.log("req.body : ", req.body)
+                const Categorie = mongoose.model('Categorie', CategorieSchema);
+                let newCategorie = new Categorie(req.body);
+                newCategorie.save((err, category) => {
+                    if (err) {
+                        console.error({ message: "Quelque chose s'est mal passé." })
+                    }
+                    console.log({ message: "Produit créé avec succès." });
+                    console.log("newCategorie : ", category);
+                });
+                console.log('File is available!');
+                return res.send(newCategorie);
             }
         });
     }

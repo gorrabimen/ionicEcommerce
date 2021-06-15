@@ -5,7 +5,11 @@ const Schema = mongoose.Schema;
 export const CategorieSchema = new Schema({
     name: {
         type: String,
-        required: 'Enter a name'
+        required: true
+    },
+    imageUrl: {
+        type: String,
+        required: true
     },
     active: {
         type: Boolean,
