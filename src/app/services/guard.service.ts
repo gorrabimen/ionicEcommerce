@@ -5,11 +5,12 @@ import { MenuController } from '@ionic/angular';
   providedIn: 'root',
 })
 export class AuthService {
+
   constructor(
     private menuController: MenuController,
-    private router: Router
-  ) { }
-  public isAuthenticated(): boolean {
+    private router: Router) { }
+
+  isAuthenticated(): boolean {
     let indicator = localStorage.getItem("loggedIn");
     let userId = localStorage.getItem("userId");
 
@@ -18,7 +19,7 @@ export class AuthService {
     return false
   }
 
-  public isAdmin(): boolean {
+  isAdmin(): boolean {
     if (this.isAuthenticated()) {
       let role = localStorage.getItem("role");
       if (role == "admin") return true
@@ -32,6 +33,10 @@ export class AuthService {
     localStorage.clear();
     this.router.navigate(['/signin']);
     this.menuController.enable(false); // Make Sidemenu disable
+  }
+
+  async gotoCartPage() {
+    this.router.navigate(['/cart']);
   }
 
 }

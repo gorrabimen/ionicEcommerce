@@ -11,6 +11,7 @@ import { Product } from '../../models/product.model';
 import { ProductsService } from '../../services/products.service';
 import { ProductDetailsComponent } from '../product-details/product-details.component';
 import { Router } from '@angular/router';
+import { AdminService } from '../admin/admin.service';
 
 
 @Component({
@@ -27,31 +28,27 @@ export class SearchComponent implements OnInit {
   isProductAvailable: boolean = false;
 
   constructor(public modalController: ModalController,
-    private productsService: ProductsService,
+    private adminService: AdminService,
     private router: Router) { }
 
   ngOnInit() {
-    this.getProductList();
+    this.getProducts()
   }
-
-  // Get All Products
-  getProductList() {
-    this.products = this.productsService.productList();
-  }
-
-  // Get Search Result
-  getProducts(ev: any) {
-    this.getProductList();
-
+  getProducts(ev: any = null) {
     // set val to the value of the searchbar
-    const val = ev.target.value;
-
-    // if the value is an empty string don't filter the product
-    if (val && val.trim() != '') {
-      this.isProductAvailable = true;
-      this.products = this.products.filter((item) => {
-        return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
+    if (ev) {
+      const val = ev.target.value;
+      // if the value is an empty string don't filter the product
+      if (val && val.trim() != '') {
+        this.isProductAvailable = true;
+        this.products = this.adminService.products.filter((item) => {
+          return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        })
+      } else {
+        this.products = this.adminService.products
+      }
+    } else {
+      this.products = this.adminService.products
     }
   }
 

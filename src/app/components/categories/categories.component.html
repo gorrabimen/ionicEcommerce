@@ -3,14 +3,14 @@
   <ion-item-divider color="white" class="ion-padding-top">
     <ion-label color="dark" class="text-bold">Catégories</ion-label>
     <ion-button class="ion-margin-end" size="small" slot="end" color="color1" fill="clear" routerLink="/tabs/categories"
-      routerDirection="root">Tout vendre</ion-button>
+      routerDirection="root">Voir Tout</ion-button>
   </ion-item-divider>
 
   <ion-grid class="ion-no-padding">
     <ion-row class="ion-no-padding">
-      <ion-col size="6" *ngFor="let item of (categories ? categories.slice(0,2): []); let i=index">
-        <ion-card class="ion-no-padding" routerLink="/tabs/products" routerDirection="root">
-          <img [src]="item.image" />
+      <ion-col  *ngFor="let item of (categories ? categories.slice(0,2): []); let i=index">
+        <ion-card class="ion-no-padding" routerLink="/tabs/products" routerDirection="root"  style="width: 100%;">
+          <img [src]="'http://localhost:3000/' + item.imageUrl" style="width: 200px;height: 200px;">
           <ion-card-header>
             <ion-card-subtitle>{{item.name}}</ion-card-subtitle>
           </ion-card-header>

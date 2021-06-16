@@ -20,7 +20,7 @@
     <!-- Cart Button Option -->
     <ion-buttons slot="end" *ngIf="authService.isAdmin()">
       <ion-button color="white" routerLink="/admin" routerDirection="root">
-        <ion-icon name="home"></ion-icon>
+        <ion-icon name="settings-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
 
@@ -31,13 +31,13 @@
     </ion-buttons>
 
     <ion-buttons slot="end" *ngIf="authService.isAuthenticated()">
-      <ion-button color="white" (click)="gotoCartPage()">
-        <ion-icon name="cart"></ion-icon>
+      <ion-button color="white" (click)="authService.gotoCartPage()">
+        <ion-icon name="cart-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
 
     <ion-buttons slot="end" *ngIf="authService.isAuthenticated()" (click)="authService.signout()">
-      <ion-button color="white" routerLink="/signin" routerDirection="root">
+      <ion-button color="white">
         <ion-icon name="log-out-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -61,6 +61,6 @@
   <app-featured-products></app-featured-products>
 
   <!-- Hot Deals -->
-  <app-hot-deals></app-hot-deals>
+  <!-- <app-hot-deals></app-hot-deals> -->
 
 </ion-content>

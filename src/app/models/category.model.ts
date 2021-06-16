@@ -1,5 +1,5 @@
 export class Category {
-    id: number;
+    _id: number;
     name: String;
-    image: String
+    imageUrl: String
 }

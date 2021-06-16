@@ -7,9 +7,10 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import { CategoryService } from '../../services/category.service';
 import { Category } from '../../models/category.model';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/guard.service';
+import { AdminService } from '../admin/admin.service';
 
 @Component({
   selector: 'app-category',
@@ -18,33 +19,39 @@ import { Router } from '@angular/router';
 })
 export class CategoryComponent implements OnInit {
 
-  categories: Category[];
-  grid: Boolean = true;
-  oneColumn: Boolean = false;
+  oneColumn: Boolean = true;
   list: Boolean = false;
 
   constructor(private router: Router,
-    private categoryService: CategoryService) { }
+    private authService: AuthService,
+    private adminService: AdminService) { }
 
   ngOnInit() {
     this.getCategories();
   }
 
   // Get list of categories
+  categories: any = [];
   getCategories() {
-    this.categories = this.categoryService.categoryList();
+    this.adminService.getCategories()
+      .subscribe((response: any) => {
+        if (response && !response.error) {
+          console.log("response : ", response);
+          this.categories = response;
+        }
+      }, (err: any) => {
+        console.error("Quelque chose s'est mal passé.");
+      });
   }
 
   // One column view function
   showOneColumn() {
     this.oneColumn = true;
-    this.grid = false
     this.list = false;
   }
 
   // Grid view function
   showGrid() {
-    this.grid = true;
     this.oneColumn = false;
     this.list = false;
   }
@@ -52,7 +59,6 @@ export class CategoryComponent implements OnInit {
   // List view function
   showList() {
     this.list = true;
-    this.grid = false;
     this.oneColumn = false;
   }
 

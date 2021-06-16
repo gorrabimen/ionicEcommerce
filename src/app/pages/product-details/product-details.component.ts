@@ -22,6 +22,7 @@ export class ProductDetailsComponent implements OnInit {
   @Input() name: String;
   @Input() description: String;
   @Input() price: number;
+  @Input() imageUrl: string;
   @Input() discountPrice: number;
   @Input() images: Array<String>;
   @Input() size: Array<String>;

@@ -11,6 +11,7 @@ import { ProductsService } from '../../services/products.service';
 import { ModalController } from '@ionic/angular';
 import { ProductDetailsComponent } from '../product-details/product-details.component';
 import { Router } from '@angular/router';
+import { AdminService } from '../admin/admin.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -19,20 +20,15 @@ import { Router } from '@angular/router';
 })
 export class WishlistComponent implements OnInit {
 
-  products: Product[];
 
-  constructor(private productsService: ProductsService,
+  constructor(private adminService: AdminService,
     public modalController: ModalController,
     private router: Router) { }
 
   ngOnInit() {
-    this.getProductList();
   }
 
-  // Get Products
-  getProductList() {
-    this.products = this.productsService.productList();
-  }
+
 
   // Go to product details page
   async goToProductDetails(product) {

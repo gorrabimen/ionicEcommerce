@@ -2,29 +2,21 @@
   <ion-item-divider color="white" class="ion-padding-top">
     <ion-label color="dark" class="text-bold">Produits favorisés</ion-label>
     <ion-button class="ion-margin-end" size="small" slot="end" color="color1" fill="clear" routerLink="/tabs/products"
-      routerDirection="root">tout à vendre</ion-button>
+      routerDirection="root">Voir Tout</ion-button>
   </ion-item-divider>
 
   <ion-slides [options]="slideOpts" class="ion-padding-top">
-    <ion-slide *ngFor="let item of products">
+    <ion-slide *ngFor="let item of adminService.products">
       <ion-grid>
         <ion-row>
           <ion-col>
             <ion-card class="ion-no-margin">
-              <div class="card-img" [style.background-image]="'url(' + item.images[0] + ')'"
+              <div class="card-img" [style.background-image]="'url(' + 'http://localhost:3000/' + item.imageUrl + ')'"
                 (click)="goToProductDetails(item)"></div>
-
-              <ion-fab vertical="top" horizontal="end">
-                <ion-fab-button>
-                  <ion-icon color="color1" name="heart-outline" *ngIf="!item.isWishlist"></ion-icon>
-                  <ion-icon color="color1" name="heart" *ngIf="item.isWishlist"></ion-icon>
-                </ion-fab-button>
-              </ion-fab>
 
               <ion-card-content (click)="goToProductDetails(item)">
                 <ion-row>
-                  <ion-text color="color1">${{item.discountPrice}} &nbsp;</ion-text>
-                  <span class="previous-price"> ${{item.price}}</span>
+                  <ion-text color="color1">TND {{item.price}} &nbsp;</ion-text>
                 </ion-row>
                 <ion-row class="product-name">
                   <h4>{{item.name | slice:0:20}}</h4>

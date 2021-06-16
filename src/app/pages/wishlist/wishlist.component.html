@@ -30,11 +30,11 @@
 <ion-content id="wishlist" fullscreen>
   <ion-grid>
     <ion-row>
-      <ion-col sizeLg="4" sizeMd="4" sizeXs="6" *ngFor="let item of products">
+      <ion-col sizeLg="4" sizeMd="4" sizeXs="6" *ngFor="let item of adminService.products">
         <ion-card class="ion-no-margin">
 
           <!-- Product Image -->
-          <div class="card-img" [style.background-image]="'url(' + item.images[0] + ')'"
+          <div class="card-img" [style.background-image]="'url(' + 'http://localhost:3000/' + item.imageUrl + ')'"
             (click)="goToProductDetails(item)"></div>
 
           <!-- Wish Button or Product Like/Dislike Button Option -->
@@ -47,8 +47,7 @@
           <!-- Product Contents -->
           <ion-card-content (click)="goToProductDetails(item)">
             <ion-row>
-              <ion-text color="color1">${{item.discountPrice}} &nbsp;</ion-text>
-              <span class="previous-price"> ${{item.price}}</span>
+              <ion-text color="color1">TND {{item.price}} &nbsp;</ion-text>
             </ion-row>
             <ion-row>
               <h4 class="product-name">{{item.name | slice:0:20}}</h4>

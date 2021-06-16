@@ -9,6 +9,7 @@
 import { Injectable } from '@angular/core';
 import { Plugins } from '@capacitor/core';
 import { Product } from '../models/product.model';
+import { AdminService } from '../pages/admin/admin.service';
 const { Storage } = Plugins;
 
 @Injectable({
@@ -16,7 +17,7 @@ const { Storage } = Plugins;
 })
 export class StorageService {
 
-  constructor() { }
+  constructor(private adminService: AdminService) { }
 
   async setObject(product: Product, ITEMS_KEY) {
     await Storage.get({ key: ITEMS_KEY }).then(async (products: any) => {
@@ -55,7 +56,7 @@ export class StorageService {
 
     let toKeep: Product[] = [];
 
-    for (let i of products) {
+    for (let i of this.adminService.products) {
       if (i.id !== id) {
         toKeep.push(i);
       }

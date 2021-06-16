@@ -14,33 +14,26 @@ export class PagesService {
     const userPages = () => [{
       title: 'Acceuil',
       url: '/tabs/tab1',
-      icon: 'basket-outline'
+      icon: 'planet-outline'
     },
     {
       title: 'Catégories',
       url: '/tabs/categories',
       icon: 'grid-outline'
     },
-
-
     {
-      title: 'Offres',
-      url: '/tabs/tab2',
-      icon: 'gift-outline'
-    },]
+      title: 'Produits',
+      url: '/tabs/produits',
+      icon: 'basket-outline'
+    }];
 
     const filterTabs = () => this.authService.isAdmin() ? [
+      ...userPages(),
       {
         title: 'Dashboard',
         url: '/admin',
-        icon: 'home-outline'
-      },
-      {
-        title: 'Products',
-        url: '/admin/products',
-        icon: 'albums-outline'
-      },
-      ...userPages()
+        icon: 'settings-outline'
+      }
     ] : userPages();
 
     this.appPages = filterTabs();

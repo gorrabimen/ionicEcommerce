@@ -17,12 +17,31 @@
     <!-- Page tile -->
     <ion-title>Catégories</ion-title>
 
-    <!-- Cart Button Option -->
-    <ion-buttons slot="end">
-      <ion-button color="white" (click)="gotoCartPage()">
-        <ion-icon name="cart"></ion-icon>
+    <ion-buttons slot="end" *ngIf="authService.isAdmin()">
+      <ion-button color="white" routerLink="/admin" routerDirection="root">
+        <ion-icon name="settings-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
+
+    <ion-buttons slot="end" *ngIf="!authService.isAuthenticated()">
+      <ion-button color="white" routerLink="/signin" routerDirection="root">
+        <ion-icon name="log-in-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <!-- Cart Button Option -->
+    <ion-buttons slot="end" *ngIf="authService.isAuthenticated()">
+      <ion-button color="white" (click)="authService.gotoCartPage()">
+        <ion-icon name="cart-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end" *ngIf="authService.isAuthenticated()" (click)="authService.signout()">
+      <ion-button color="white">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
@@ -37,10 +56,6 @@
       <ion-icon slot="icon-only" name="square"></ion-icon>
     </ion-button>
 
-    <!-- Grid View Option -->
-    <ion-button fill="clear" [color]="grid ? 'color1' : 'color2'" class="ion-no-padding" (click)="showGrid()">
-      <ion-icon slot="icon-only" name="grid"></ion-icon>
-    </ion-button>
 
     <!-- List view option -->
     <ion-button fill="clear" [color]="list ? 'color1' : 'color2'" class="ion-no-padding" (click)="showList()">
@@ -51,22 +66,11 @@
 
   <!-- Grid View Contents -->
   <ion-grid>
-    <ion-row *ngIf="grid">
-      <ion-col size="6" *ngFor="let item of categories">
-        <ion-card class="ion-no-padding ion-no-margin" routerLink="/tabs/products" routerDirection="root">
-          <img [src]="item.image" />
-          <ion-card-header>
-            <ion-card-subtitle>{{item.name}}</ion-card-subtitle>
-          </ion-card-header>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-
     <!-- One COlumn View Contents -->
     <ion-row *ngIf="oneColumn">
       <ion-col size="12" *ngFor="let item of categories">
         <ion-card class="ion-no-padding ion-no-margin" routerLink="/tabs/products" routerDirection="root">
-          <img [src]="item.image" />
+          <img style="vertical-align: middle;" [src]="'http://localhost:3000/' + item.imageUrl">
           <ion-card-header>
             <ion-card-subtitle>{{item.name}}</ion-card-subtitle>
           </ion-card-header>
@@ -80,9 +84,8 @@
     <ion-item class="ion-padding-bottom" *ngFor="let item of categories" routerLink="/tabs/products"
       routerDirection="root">
       <ion-thumbnail slot="start">
-        <img style="vertical-align: middle;" [src]="item.image">
+        <img style="vertical-align: middle;" [src]="'http://localhost:3000/' + item.imageUrl">
       </ion-thumbnail>
-
       <ion-label>
         <h2> {{ item.name }}</h2>
       </ion-label>

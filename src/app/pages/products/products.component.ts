@@ -13,6 +13,8 @@ import { ModalController } from '@ionic/angular';
 import { ProductDetailsComponent } from '../product-details/product-details.component';
 import { FilterComponent } from '../filter/filter.component';
 import { GetApiService } from 'src/app/get-api.service';
+import { AuthService } from 'src/app/services/guard.service';
+import { AdminService } from '../admin/admin.service';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -20,27 +22,22 @@ import { GetApiService } from 'src/app/get-api.service';
 })
 export class ProductsComponent implements OnInit {
 
-  // List of prodict
-  products: Product[];
-
   grid: Boolean = true;
   oneColumn: Boolean = false;
   list: Boolean = false;
 
-  constructor(private productsService: ProductsService,
-    public modalController: ModalController,private api:GetApiService) { }
+  constructor(
+    private adminService: AdminService,
+    private authService: AuthService,
+    public modalController: ModalController,
+    private api: GetApiService) { }
 
   ngOnInit() {
-    this.getProductList();
-
-    this.api.apiCall().subscribe((data:any[])=>{
-      console.warn('get api data',data);
+    this.api.apiCall().subscribe((data: any[]) => {
+      console.warn('get api data', data);
     })
   }
-  // Get List of Products
-  getProductList() {
-    this.products = this.productsService.productList();
-  }
+
 
   // Go to product details page
   async goToProductDetails(product) {

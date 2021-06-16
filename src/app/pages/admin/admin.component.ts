@@ -6,6 +6,7 @@ import { ModalController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/guard.service';
 import { PagesService } from 'src/app/services/pages.service';
 import { ToastService } from './toast.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-admin',
@@ -13,7 +14,6 @@ import { ToastService } from './toast.service';
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements OnInit {
-  categories: any = [];
   steps: any = [
     {
       step: "Ajouter Un Produit",
@@ -47,6 +47,7 @@ export class AdminComponent implements OnInit {
     this.pagesService.getPages();
   }
 
+  categories: any = [];
   getCategories() {
     this.adminService.getCategories()
       .subscribe((response: any) => {
@@ -108,6 +109,7 @@ export class AdminComponent implements OnInit {
             if (response && !response.error) {
               console.log("response : ", response);
               this.toastService.presentToast('Votre produit a été enregistré.');
+              this.adminService.products.push(response);
               this.createProductForm();
             }
           }, err => {
@@ -128,6 +130,7 @@ export class AdminComponent implements OnInit {
             if (response && !response.error) {
               console.log("response : ", response);
               this.toastService.presentToast('Votre catégorie a été enregistrée.');
+              this.categories.push(response);
               this.createCategoryForm();
             }
           }, (err: any) => {

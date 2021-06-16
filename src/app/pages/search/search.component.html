@@ -35,7 +35,7 @@
 
   <!-- When search result is empty -->
   <!-- No products Found -->
-  <ion-grid class="ion-padding" id="empty" *ngIf="products.length == 0" style="height: 100%">
+  <ion-grid class="ion-padding" id="empty" *ngIf="products?.length == 0" style="height: 100%">
     <ion-row class="ion-align-items-center ion-justify-content-center" style="height: 100%; flex-direction: column">
       <div class="ion-text-center ion-padding">
         <ion-icon name="search" style="zoom:5.0;" color="medium"></ion-icon>
@@ -52,21 +52,12 @@
         <ion-card class="ion-no-margin" (click)="goToProductDetails(item)">
 
           <!-- Product Image -->
-          <div class="card-img" [style.background-image]="'url(' + item.images[0] + ')'"></div>
-
-          <!-- Wish Button or Product Like/Dislike Button Option -->
-          <ion-fab vertical="top" horizontal="end">
-            <ion-fab-button>
-              <ion-icon color="color1" name="heart-outline" *ngIf="!item.isWishlist"></ion-icon>
-              <ion-icon color="color1" name="heart" *ngIf="item.isWishlist"></ion-icon>
-            </ion-fab-button>
-          </ion-fab>
+          <div class="card-img" [style.background-image]="'url(' + 'http://localhost:3000/' + item.imageUrl + ')'"></div>
 
           <!-- Product Contents -->
           <ion-card-content>
             <ion-row>
-              <ion-text color="color1">${{item.discountPrice}} &nbsp;</ion-text>
-              <span class="previous-price"> ${{item.price}}</span>
+              <ion-text color="color1">TND {{item.price}} &nbsp;</ion-text>
             </ion-row>
             <ion-row>
               <h4 class="product-name">{{item.name | slice:0:20}}</h4>

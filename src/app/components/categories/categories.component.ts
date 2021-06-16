@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryService } from '../../services/category.service';
 import { Category } from '../../models/category.model';
+import { AdminService } from 'src/app/pages/admin/admin.service';
 
 @Component({
   selector: 'app-categories',
@@ -9,16 +9,25 @@ import { Category } from '../../models/category.model';
 })
 export class CategoriesComponent implements OnInit {
 
-  categories: Category[];
 
-  constructor(private categoryService: CategoryService) { }
+  constructor(
+    private adminService: AdminService
+  ) { }
 
   ngOnInit() {
     this.getCategories();
   }
 
+  categories: any = [];
   getCategories() {
-    this.categories = this.categoryService.categoryList();
+    this.adminService.getCategories()
+      .subscribe((response: any) => {
+        if (response && !response.error) {
+          console.log("response : ", response);
+          this.categories = response;
+        }
+      }, (err: any) => {
+        console.error("Quelque chose s'est mal passé.");
+      });
   }
-
 }
