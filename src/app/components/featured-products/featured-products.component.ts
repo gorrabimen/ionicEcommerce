@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/product.model';
-import { ProductsService } from '../../services/products.service';
 import { ModalController } from '@ionic/angular';
 import { ProductDetailsComponent } from '../../pages/product-details/product-details.component';
-import { Produit } from 'src/app/models/produit'
 import { GetApiService } from 'src/app/get-api.service';
 import { AdminService } from 'src/app/pages/admin/admin.service';
 @Component({

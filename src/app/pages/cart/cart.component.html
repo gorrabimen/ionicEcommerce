@@ -29,12 +29,12 @@
                 <ion-icon name="cart" style="zoom:5.0;" color="medium"></ion-icon>
                 <h4>Votre panier est vide</h4>
                 <p>Il semble que vous n’avez encore rien ajouté à votre panier</p>
-                <ion-button  color="color1"  expand="block" (click)="next()" routerLink="/tabs/tab1" >contunier vos achats
+                <ion-button color="color1" expand="block" routerLink="/tabs/tab1">contunier vos achats
                 </ion-button>
             </div>
         </ion-row>
     </ion-grid>
-    
+
     <!-- Cart Contents -->
     <div *ngIf="cartProducts.length != 0">
         <!-- Cart Product List -->
@@ -56,7 +56,7 @@
 
                         <!-- Product Price -->
                         <ion-text color="color1">
-                            <p>${{item.discountPrice}}</p>
+                            <p>TND {{item.price}}</p>
                         </ion-text>
 
                         <!-- Quantity -->
@@ -85,26 +85,11 @@
 
         <!-- summary Of Products Price -->
         <ion-list lines="none">
-            <ion-item>
-                <ion-label>Sub Total</ion-label>
-                <ion-note slot="end" color="dark">{{total}}</ion-note>
-            </ion-item>
-
-            <ion-item>
-                <ion-label>Expédition</ion-label>
-                <ion-note slot="end" color="dark">$25</ion-note>
-            </ion-item>
-
-            <ion-item>
-                <ion-label>Tax(10%)</ion-label>
-                <ion-note slot="end" color="dark">$100</ion-note>
-            </ion-item>
-
             <ion-item-divider></ion-item-divider>
 
             <ion-item>
                 <ion-label>Total</ion-label>
-                <ion-note slot="end" color="dark">${{total + 25 + 100}}</ion-note>
+                <ion-note slot="end" color="dark">${{total}}</ion-note>
             </ion-item>
         </ion-list>
     </div>
@@ -114,7 +99,8 @@
 <ion-footer class="ion-no-border">
     <ion-toolbar class="ion-padding" transparent>
         <!-- Checkout Button Option -->
-        <ion-button color="color1" expand="block" (click)="next()"  *ngIf="cartProducts.length != 0" routerLink="/checkout">PASSER À LA CAISSE
+        <ion-button color="color1" expand="block" *ngIf="cartProducts?.length != 0" routerLink="/checkout">PASSER À LA
+            CAISSE
         </ion-button>
     </ion-toolbar>
 </ion-footer>

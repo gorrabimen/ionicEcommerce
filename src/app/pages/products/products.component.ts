@@ -7,8 +7,6 @@
 
 
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../../models/product.model';
-import { ProductsService } from '../../services/products.service';
 import { ModalController } from '@ionic/angular';
 import { ProductDetailsComponent } from '../product-details/product-details.component';
 import { FilterComponent } from '../filter/filter.component';

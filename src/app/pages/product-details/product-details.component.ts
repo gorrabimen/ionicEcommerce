@@ -24,7 +24,7 @@ export class ProductDetailsComponent implements OnInit {
   @Input() description: String;
   @Input() price: number;
   @Input() imageUrl: string;
-  @Input() discountPrice: number;
+  @Input() discountPrice: number = 0;
   @Input() images: Array<String>;
   @Input() size: Array<String>;
   @Input() color: Array<String>;
@@ -58,9 +58,10 @@ export class ProductDetailsComponent implements OnInit {
     this.products = {
       id: this.id,
       name: this.name,
+      imageUrl: this.imageUrl,
       description: this.description,
       price: this.price,
-      discountPrice: this.discountPrice,
+      discountPrice: 0,
       images: this.images,
       size: this.size,
       color: this.color,

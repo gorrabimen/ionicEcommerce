@@ -7,7 +7,7 @@
  */
 
 
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { StorageService } from '../../services/storage.service';
 import { Product } from '../../models/product.model';
@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss'],
 })
-export class CartComponent implements OnInit {
+export class CartComponent {
 
   cartProducts: Product[] = [];
   total: number = 0;
@@ -27,10 +27,6 @@ export class CartComponent implements OnInit {
     public storageService: StorageService,
     private router: Router
   ) { }
-
-  ngOnInit() {
-
-  }
 
   ionViewDidEnter() {
     this.getCartItems();
@@ -41,8 +37,9 @@ export class CartComponent implements OnInit {
     this.storageService.getObject('my-cart').then((products) => {
       this.cartProducts = products;
       for (var i = 0; i < this.cartProducts.length; i++) {
-        this.total += this.cartProducts[i].discountPrice * this.cartProducts[i].quantity;
+        this.cartProducts[i].quantity = 1;
       }
+      this.total =this.getTotal();
     });
   }
 
@@ -50,7 +47,7 @@ export class CartComponent implements OnInit {
   minusQuantity(product, index) {
     if (product.quantity > 1) {
       product.quantity = product.quantity - 1;
-      this.total = this.total - product.discountPrice;
+      this.total = this.getTotal()
     }
   }
 
@@ -62,7 +59,13 @@ export class CartComponent implements OnInit {
       product.quantity = 1;
       product.quantity = product.quantity + 1;
     }
-    this.total = this.total + product.discountPrice;
+    this.total = this.getTotal()
+  }
+
+  getTotal() {
+    return this.cartProducts.reduce(
+      (accumulateur, valeurCourante) => accumulateur + valeurCourante.price * valeurCourante.quantity, 0
+    );
   }
 
   // Remove Product From Cart
@@ -70,7 +73,7 @@ export class CartComponent implements OnInit {
     this.cartProducts.splice(index, 1);
     await this.storageService.removeStorageValue(product.id, 'my-cart');
     await this.getCartItems();
-    this.total = this.total - (product.discountPrice * product.quantity);
+    this.total = this.getTotal()
   }
 
   // Go to checkout page
