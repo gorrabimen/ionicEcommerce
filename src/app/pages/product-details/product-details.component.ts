@@ -10,6 +10,7 @@ import { Product } from '../../models/product.model';
 import { StorageService } from '../../services/storage.service';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/guard.service';
 
 @Component({
   selector: 'app-product-details',
@@ -45,6 +46,7 @@ export class ProductDetailsComponent implements OnInit {
 
   constructor(public router: Router,
     private storageService: StorageService,
+    private authService: AuthService,
     private modalController: ModalController
   ) { }
 
@@ -74,6 +76,11 @@ export class ProductDetailsComponent implements OnInit {
   async gotoCartPage() {
     this.dismiss();
     this.router.navigate(['/cart']);
+  }
+  
+  async goSignIn() {
+    this.dismiss();
+    this.authService.signout();
   }
 
   // Back to previous page function
