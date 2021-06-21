@@ -7,6 +7,10 @@ export const OrderSchema = new Schema({
         type: String,
         required: true,
     },
+    state: {
+        type: String,
+        required: true,
+    },
     city: {
         type: String,
         required: true,
@@ -23,8 +27,8 @@ export const OrderSchema = new Schema({
         type: Number,
         required: true,
     },
-    product: {
-        type: mongoose.Schema.Types.ObjectId,
+    products: {
+        type: [mongoose.Schema.Types.ObjectId],
         ref: 'Product',
         required: true
     },

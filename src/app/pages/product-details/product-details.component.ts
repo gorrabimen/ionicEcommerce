@@ -71,6 +71,7 @@ export class ProductDetailsComponent implements OnInit {
 
     // Save cart product in storage
     this.storageService.setObject(this.products, 'my-cart');
+    this.dismiss();
   }
 
   // Go to cart page

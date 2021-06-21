@@ -41,19 +41,10 @@
   <div id="billing" *ngIf="steps[0].isSelected">
 
     <form class="ion-padding">
-      <!-- Full Name -->
-      <ion-item>
-        <ion-input type="text" placeholder="Nom&prénom" name="name"></ion-input>
-      </ion-item>
 
       <!-- Address 1 -->
       <ion-item class="ion-padding-top">
-        <ion-input type="text" placeholder="Adresse 1" name="adresse1"></ion-input>
-      </ion-item>
-
-      <!-- Address 2 -->
-      <ion-item class="ion-padding-top">
-        <ion-input type="text" placeholder="Adresse 2" name="adresse2"></ion-input>
+        <ion-input type="text" placeholder="Adresse" name="adresse1"></ion-input>
       </ion-item>
 
       <ion-row>
@@ -66,7 +57,7 @@
         <ion-col>
           <!-- State -->
           <ion-item class="ion-padding-top">
-            <ion-input type="text" placeholder="state" name="state"></ion-input>
+            <ion-input type="text" placeholder="state"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -79,60 +70,9 @@
   </div>
   <!-- End billing section -->
 
-  <!-- Payment Section -->
-  <div id="payment" *ngIf="steps[1].isSelected">
-
-    <p class="title">Sélectionnez Paiement</p>
-
-    <!-- Payment Card Options -->
-    <ion-radio-group>
-      <ion-row>
-        <ion-col *ngFor="let item of cards">
-          <ion-item lines="none">
-            <ion-radio color="color1" mode="ios" [value]="item"></ion-radio>
-            <img [src]="item">
-          </ion-item>
-        </ion-col>
-      </ion-row>
-    </ion-radio-group>
-
-    <!-- Card Information Form -->
-    <form class="ion-padding">
-      <!-- Cardholder Name -->
-      <ion-item>
-        <ion-input type="text" placeholder="Nom du titulaire" name="name"></ion-input>
-      </ion-item>
-
-      <!-- Card Number -->
-      <ion-item class="ion-padding-top">
-        <ion-input type="text" placeholder="Numéro de carte" name="cardnumber"></ion-input>
-      </ion-item>
-
-      <ion-row>
-        <ion-col>
-          <!-- MM -->
-          <ion-item class="ion-padding-top">
-            <ion-input type="text" placeholder="MM" name="mm"></ion-input>
-          </ion-item>
-        </ion-col>
-        <ion-col>
-          <!-- YY -->
-          <ion-item class="ion-padding-top">
-            <ion-input type="text" placeholder="YY" name="yy"></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-
-      <!-- CVV -->
-      <ion-item class="ion-padding-top">
-        <ion-input type="text" placeholder="CVV" name="cvv"></ion-input>
-      </ion-item>
-    </form>
-  </div>
-
   <!-- Payment Complete Section -->
   <!-- Confirm Screen -->
-  <div id="complete-section" *ngIf="steps[2].isSelected" style="height: 70%">
+  <div id="complete-section" *ngIf="steps[1].isSelected" style="height: 70%">
     <ion-grid class="ion-padding" style="height: 100%">
       <ion-row class="ion-align-items-center ion-justify-content-center" style="height: 100%; flex-direction: column">
         <div class="ion-text-center ion-padding">
@@ -151,17 +91,17 @@
 
     <!-- Go To Next Section Button Option  -->
     <!-- This button only visible Step 1 & 2 -->
-    <ion-button *ngIf="!steps[2].isSelected" color="color1" expand="block" (click)="next()">Suivant
+    <ion-button *ngIf="!steps[1].isSelected" color="color1" expand="block" (click)="next()">Suivant
     </ion-button>
 
     <!-- Go To Order Page Button Option  -->
     <!-- This Option will be visible on Step 3 -->
-    <ion-button *ngIf="steps[2].isSelected" color="color1" fill="outline" expand="block" (click)="gotoOrderPage()">Mes commandes
+    <ion-button *ngIf="steps[1].isSelected" color="color1" fill="outline" expand="block" (click)="gotoOrderPage()">Mes commandes
     </ion-button>
 
     <!-- Go To Products Page Button Option  -->
     <!-- This Option will be visible on Step 3 -->
-    <ion-button *ngIf="steps[2].isSelected" color="color1" expand="block" (click)="gotoProductsPage()">Continue Shopping
+    <ion-button *ngIf="steps[1].isSelected" color="color1" expand="block" (click)="gotoProductsPage()">Continue Shopping
     </ion-button>
   </ion-toolbar>
 </ion-footer>

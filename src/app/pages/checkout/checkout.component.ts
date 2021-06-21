@@ -30,10 +30,6 @@ export class CheckoutComponent implements OnInit {
         isSelected: true
       },
       {
-        step: "Payment",
-        isSelected: false
-      },
-      {
         step: "Confirm",
         isSelected: false
       }
@@ -53,11 +49,11 @@ export class CheckoutComponent implements OnInit {
       this.steps[1].isSelected = true;
     }
     // If current section is Billing then next section confirm will be visible 
-    else if (this.steps[1].isSelected) {
-      this.steps[0].isSelected = false;
-      this.steps[1].isSelected = false;
-      this.steps[2].isSelected = true;
-    }
+    // else if (this.steps[1].isSelected) {
+    //   this.steps[0].isSelected = false;
+    //   this.steps[1].isSelected = false;
+    //   this.steps[2].isSelected = true;
+    // }
   }
 
   // Go to order page function
