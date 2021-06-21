@@ -34,7 +34,7 @@ export class ProductController {
             if (err) {
                 res.send(err);
             }
-            res.json({ message: 'Successfully deleted article!' });
+            res.json({ message: 'Successfully deleted!' });
         });
     }
 }

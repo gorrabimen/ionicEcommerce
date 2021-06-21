@@ -13,7 +13,7 @@ export class UserController {
             if (err) {
                 res.send(err);
             }
-            res.json({message : "utilisateur créé avec succès"});
+            res.json({message : "créé avec succès"});
         });
     }
     public login(req: Request, res: Response) {
@@ -45,10 +45,10 @@ export class UserController {
                 res.send(err);
             }
             res.json(User);
-        });
+        }).select('-password -role -updatedAt -createdAt');
     }
     public update(req: Request, res: Response) {
-        User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, User) => {
+        User.findOneAndUpdate({ _id: req.params.userId }, req.body, { new: true }, (err, User) => {
             if (err) {
                 res.send(err);
             }
@@ -56,11 +56,11 @@ export class UserController {
         });
     }
     public delete(req: Request, res: Response) {
-        User.remove({ _id: req.params.id }, (err) => {
+        User.remove({ _id: req.params.userId }, (err) => {
             if (err) {
                 res.send(err);
             }
-            res.json({ message: 'Successfully deleted User!' });
+            res.json({ message: 'deleted User!' });
         });
     }
 }

@@ -14,9 +14,16 @@ export class AdminService {
     this.getProducts();
   }
 
-
   getCategories() {
     return this.http.get(environment.apiUrl + "/category");
+  }
+
+  getUserById(id: string) {
+    return this.http.get(environment.apiUrl + "/user/getUserbyId/" + id);
+  }
+
+  updateUserById(id: string, data: any) {
+    return this.http.put(environment.apiUrl + "/user/" + id, data);
   }
 
   getProducts() {

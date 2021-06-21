@@ -15,7 +15,7 @@ User.findOne({ email: "admin@gmail.com" }, (err, user) => {
                 firstname: "Admin",
                 lastname: "Admin",
                 email: "admin@gmail.com",
-                gender: "male",
+                gender: "homme",
                 role: "admin",
                 password: "admin",
                 mobile: "+216 52 963 741"
