@@ -6,6 +6,8 @@
  */
 
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { AdminService } from '../admin/admin.service';
 
 @Component({
   selector: 'app-orders',
@@ -20,49 +22,22 @@ export class OrdersComponent implements OnInit {
     autoplay: true,
   };
 
-  // Order Options
-  options: any = [{
-    title: 'Delivered',
-    isSelected: true
-  }, {
-    title: 'Processing',
-    isSelected: false
-  }, {
-    title: 'Cancelled',
-    isSelected: false
-  }];
+  constructor(private aminService: AdminService) { this.getProducts(); }
 
-  // Orders Sample Data
-  orders: any = [{
-    orderId: '#NPOK8T',
-    date: '15/11/2020',
-    trackingNumber: 'AQWNQWEIC',
-    quantity: 2,
-    totalPrice: 100
-  }, {
-    orderId: '#NPORK8T',
-    date: '20/11/2020',
-    trackingNumber: 'WNQWEIC',
-    quantity: 2,
-    totalPrice: 500
-  }, {
-    orderId: '#NPOKYY8T',
-    date: '05/11/2020',
-    trackingNumber: 'MWNQWEIC',
-    quantity: 4,
-    totalPrice: 300
-  }];
-
-  constructor() { }
+  ionViewDidEnter() { this.getProducts(); }
 
   ngOnInit() { }
 
-  // Change Order Option Function
-  changeOption(option, index) {
-    for (let i = 0; i < this.options.length; i++) {
-      this.options[i].isSelected = false;
-    }
-
-    this.options[index].isSelected = true;
+  // Orders
+  orders: any = [];
+  getProducts() {
+    this.aminService.getOrders()
+      .subscribe((response: any) => {
+        if (response && !response.error) {
+          console.log("response : ", response);
+          this.orders = response.map(x => ({ date: new Date(x.createdAt).toLocaleDateString(), totalPrice: x.price }));
+        }
+      });
   }
+
 }

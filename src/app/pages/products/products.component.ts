@@ -27,15 +27,10 @@ export class ProductsComponent implements OnInit {
   constructor(
     private adminService: AdminService,
     private authService: AuthService,
-    public modalController: ModalController,
-    private api: GetApiService) { }
-
-  ngOnInit() {
-    this.api.apiCall().subscribe((data: any[]) => {
-      console.warn('get api data', data);
-    })
+    public modalController: ModalController) { }
+    
+  ngOnInit(): void {
   }
-
 
   // Go to product details page
   async goToProductDetails(product) {

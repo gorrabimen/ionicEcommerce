@@ -19,7 +19,7 @@ import { AuthService } from 'src/app/services/guard.service';
 })
 export class ProductDetailsComponent implements OnInit {
 
-  @Input() id: number;
+  @Input() _id: number;
   @Input() name: String;
   @Input() description: String;
   @Input() price: number;
@@ -56,7 +56,7 @@ export class ProductDetailsComponent implements OnInit {
   // Add to Cart Function
   addToCart() {
     this.products = {
-      id: this.id,
+      _id: this._id,
       name: this.name,
       imageUrl: this.imageUrl,
       description: this.description,

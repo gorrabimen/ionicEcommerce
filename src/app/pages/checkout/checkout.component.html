@@ -90,7 +90,9 @@
 
     <!-- Go To Next Section Button Option  -->
     <!-- This button only visible Step 1 & 2 -->
-    <ion-button *ngIf="!steps[1].isSelected" color="color1" expand="block" (click)="next()">Suivant</ion-button>
+    <ion-button *ngIf="!steps[1].isSelected" color="color1" expand="block" [disabled]="steps[0].isSelected && orderForm.invalid"
+      (click)="next()">Suivant
+    </ion-button>
 
     <!-- Go To Order Page Button Option  -->
     <!-- This Option will be visible on Step 3 -->

@@ -1,11 +1,3 @@
-<!--
-  - My Orders Screen
-  - @author    ThemesBuckets <themebucketbd@gmail.com>
-  - @copyright Copyright (c) 2020
-  - @license   ThemesBuckets
--->
-
-<!-- Headder -->
 <ion-header class="ion-no-border">
   <ion-toolbar color="color1">
 
@@ -22,15 +14,6 @@
 <!-- Contents -->
 <ion-content id="orders" fullscreen>
 
-  <!-- Orders Options -->
-  <!-- Options are - Delivered, Processing, Cancelled  -->
-  <div class="ion-padding ion-text-center">
-    <ion-chip *ngFor="let item of options; let i = index" [ngClass]="{ionChip: item.isSelected}"
-      (click)="changeOption(item, i)">
-      <ion-label>{{item.title}}</ion-label>
-    </ion-chip>
-  </div>
-
   <!-- List of orders -->
   <ion-card *ngFor="let item of orders">
     <ion-card-header>
@@ -38,7 +21,7 @@
 
         <!-- Order Id -->
         <ion-col>
-          <ion-card-title>Commande {{item.orderId}}</ion-card-title>
+          <ion-card-title>Commande </ion-card-title>
         </ion-col>
 
         <!-- Order Date -->
@@ -47,18 +30,12 @@
         </ion-col>
       </ion-row>
 
-      <!-- Order Tracking Number -->
-      <ion-row>
-        <ion-col>Numéro de suivi: {{item.trackingNumber}}</ion-col>
-      </ion-row>
-
       <!-- Order Quantity & Price -->
       <ion-row>
-        <ion-col>Quantité: {{item.quantity}}</ion-col>
         <ion-col>Prix total: ${{item.totalPrice}}</ion-col>
       </ion-row>
 
-      <ion-button color="color1" size="small">Details</ion-button>
+      <!-- <ion-button color="color1" size="small">Details</ion-button> -->
     </ion-card-header>
   </ion-card>
 </ion-content>

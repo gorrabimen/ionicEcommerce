@@ -14,6 +14,10 @@ export class AdminService {
     this.getProducts();
   }
 
+  getOrders() {
+    return this.http.get(environment.apiUrl + "/order");
+  }
+  
   getCategories() {
     return this.http.get(environment.apiUrl + "/category");
   }

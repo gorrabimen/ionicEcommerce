@@ -24,7 +24,7 @@ export class OrderController {
                 res.send(err);
             }
             res.json(order);
-        }).populate('Products').populate('User');
+        }).populate('Product').populate('User');
     }
     public getOrderByUserId(req: Request, res: Response) {
         Order.find({ user: new mongoose.Types.ObjectId(req.params.userId) }, (err, order) => {
@@ -32,7 +32,7 @@ export class OrderController {
                 res.send(err);
             }
             res.json(order);
-        }).populate('Products').populate('User');
+        }).populate('Product').populate('User');
     }
 
     public getOrderWithID(req: Request, res: Response) {
@@ -41,7 +41,7 @@ export class OrderController {
                 res.send(err);
             }
             res.json(order);
-        }).populate('Products');
+        }).populate('Product');
     }
     public updateOrder(req: Request, res: Response) {
         Order.findOneAndUpdate({ _id: req.params.orderId }, req.body, { new: true }, (err, order) => {

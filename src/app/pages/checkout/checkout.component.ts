@@ -1,3 +1,4 @@
+import { AdminService } from 'src/app/pages/admin/admin.service';
 /**
  * Checkout Screen
  * @author    ThemesBuckets <themebucketbd@gmail.com>
@@ -23,6 +24,7 @@ export class CheckoutComponent implements OnInit {
   orderForm: FormGroup;
 
   constructor(
+    public adminService: AdminService,
     public modalController: ModalController,
     public formBuilder: FormBuilder,
     private router: Router,
@@ -39,7 +41,8 @@ export class CheckoutComponent implements OnInit {
     if (this.storageService.cartProducts || this.storageService.cartProducts.length) {
 
       this.orderForm.patchValue({
-        price: this.getTotal()
+        price: this.getTotal(),
+        products: this.storageService.cartProducts.map(x => ({ product: x._id, quantity: x.quantity }))
       });
     } else {
       this.router.navigate(['/tabs/cart']);
@@ -52,9 +55,9 @@ export class CheckoutComponent implements OnInit {
       state: ["", Validators.required],
       city: ["", Validators.required],
       zip: ["", Validators.required],
-      price: [0, Validators.required],
-      products: [[], Validators.required],
-      user: [localStorage.getItem('userId'), Validators.required],
+      price: [0],
+      products: [[]],
+      user: [localStorage.getItem('userId')],
     });
   }
 
@@ -80,13 +83,24 @@ export class CheckoutComponent implements OnInit {
 
   // Go to xext section function
   next() {
-    console.log("this.storageService.cartProducts.length :",this.storageService.cartProducts.length);
-    
-    if (this.storageService.cartProducts && this.storageService.cartProducts.length !=0) {
-      // If current section is billing then next payment section will be visible
+    if (this.storageService.cartProducts && this.storageService.cartProducts.length != 0) {
       if (this.steps[0].isSelected) {
-        this.steps[0].isSelected = false;
-        this.steps[1].isSelected = true;
+        // If current section is billing then next payment section will be visible
+        console.log("this.orderForm.value : ", this.orderForm.value);
+
+        this.adminService.createOrder(this.orderForm.value)
+          .subscribe((response: any) => {
+            if (response && !response.error) {
+              console.log("response : ", response);
+              this.steps[0].isSelected = false;
+              this.steps[1].isSelected = true;
+              localStorage.removeItem('_cap_my-cart')
+              this.storageService.clear()
+              this.storageService.cartProducts = [];
+            }
+          }, (err: any) => {
+            console.error("Quelque chose s'est mal passé.");
+          });
       }
     } else {
       this.router.navigate(['/cart']);
