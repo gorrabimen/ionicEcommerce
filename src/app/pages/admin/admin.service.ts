@@ -43,6 +43,10 @@ export class AdminService {
   createProduct(formData) {
     return this.http.post(environment.apiUrl + "/product/save", formData)
   }
+  
+  createOrder(data) {
+    return this.http.post(environment.apiUrl + "/order", data)
+  }
 
   async gotoCartPage() {
     this.router.navigate(['/cart']);

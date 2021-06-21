@@ -40,31 +40,30 @@
   <!-- Billing Section -->
   <div id="billing" *ngIf="steps[0].isSelected">
 
-    <form class="ion-padding">
+    <form [formGroup]="orderForm" class="ion-padding">
 
-      <!-- Address 1 -->
       <ion-item class="ion-padding-top">
-        <ion-input type="text" placeholder="Adresse" name="adresse1"></ion-input>
+        <ion-input type="text" placeholder="Adresse" name="adresse1" formControlName="address"></ion-input>
       </ion-item>
 
       <ion-row>
         <ion-col>
-          <!-- City -->
+
           <ion-item class="ion-padding-top">
-            <ion-input type="text" placeholder="Ville" name="Ville"></ion-input>
+            <ion-input type="text" placeholder="Ville" name="Ville" formControlName="city"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col>
-          <!-- State -->
+
           <ion-item class="ion-padding-top">
-            <ion-input type="text" placeholder="state"></ion-input>
+            <ion-input type="text" placeholder="Région" formControlName="state"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
 
-      <!-- Zip Code -->
+
       <ion-item class="ion-padding-top">
-        <ion-input type="text" placeholder="Code postal" name="Zip Code"></ion-input>
+        <ion-input type="number" placeholder="Code postal" formControlName="zip"></ion-input>
       </ion-item>
     </form>
   </div>
@@ -91,12 +90,12 @@
 
     <!-- Go To Next Section Button Option  -->
     <!-- This button only visible Step 1 & 2 -->
-    <ion-button *ngIf="!steps[1].isSelected" color="color1" expand="block" (click)="next()">Suivant
-    </ion-button>
+    <ion-button *ngIf="!steps[1].isSelected" color="color1" expand="block" (click)="next()">Suivant</ion-button>
 
     <!-- Go To Order Page Button Option  -->
     <!-- This Option will be visible on Step 3 -->
-    <ion-button *ngIf="steps[1].isSelected" color="color1" fill="outline" expand="block" (click)="gotoOrderPage()">Mes commandes
+    <ion-button *ngIf="steps[1].isSelected" color="color1" fill="outline" expand="block" (click)="gotoOrderPage()">Mes
+      commandes
     </ion-button>
 
     <!-- Go To Products Page Button Option  -->

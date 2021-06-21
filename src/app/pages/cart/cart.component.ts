@@ -10,7 +10,6 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { StorageService } from '../../services/storage.service';
-import { Product } from '../../models/product.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -20,7 +19,7 @@ import { Router } from '@angular/router';
 })
 export class CartComponent {
 
-  cartProducts: Product[] = [];
+  
   total: number = 0;
 
   constructor(public modalController: ModalController,
@@ -36,13 +35,13 @@ export class CartComponent {
   getCartItems() {
     this.storageService.getObject('my-cart').then((products) => {
       if(products && products.length){
-        this.cartProducts = products;
-        for (var i = 0; i < this.cartProducts.length; i++) {
-          this.cartProducts[i].quantity = 1;
+        this.storageService.cartProducts = products;
+        for (var i = 0; i < this.storageService.cartProducts.length; i++) {
+          this.storageService.cartProducts[i].quantity = 1;
         }
         this.total =this.getTotal();
       }else{
-        this.cartProducts = []
+        this.storageService.cartProducts = []
       }
     });
   }
@@ -52,6 +51,7 @@ export class CartComponent {
     if (product.quantity > 1) {
       product.quantity = product.quantity - 1;
       this.total = this.getTotal()
+      // this.storageService.setObject(this.storageService.cartProducts, 'my-cart');
     }
   }
 
@@ -64,17 +64,18 @@ export class CartComponent {
       product.quantity = product.quantity + 1;
     }
     this.total = this.getTotal()
+    // this.storageService.setObject(this.storageService.cartProducts, 'my-cart');
   }
 
   getTotal() {
-    return this.cartProducts.reduce(
+    return this.storageService.cartProducts.reduce(
       (accumulateur, valeurCourante) => accumulateur + valeurCourante.price * valeurCourante.quantity, 0
     );
   }
 
   // Remove Product From Cart
   async removeProduct(product, index) {
-    this.cartProducts.splice(index, 1);
+    this.storageService.cartProducts.splice(index, 1);
     await this.storageService.removeStorageValue(product.id, 'my-cart');
     await this.getCartItems();
     this.total = this.getTotal()

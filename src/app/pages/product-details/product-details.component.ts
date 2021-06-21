@@ -30,7 +30,7 @@ export class ProductDetailsComponent implements OnInit {
   @Input() color: Array<String>;
   @Input() isWishlist: boolean;
 
-  products: Product;
+  products:any;
 
   // Slider Options
   slideOpts = {
@@ -62,11 +62,7 @@ export class ProductDetailsComponent implements OnInit {
       description: this.description,
       price: this.price,
       discountPrice: 0,
-      images: this.images,
-      size: this.size,
-      color: this.color,
       quantity: 1,
-      isWishlist: this.isWishlist
     }
 
     // Save cart product in storage
@@ -79,7 +75,7 @@ export class ProductDetailsComponent implements OnInit {
     this.dismiss();
     this.router.navigate(['/cart']);
   }
-  
+
   async goSignIn() {
     this.dismiss();
     this.authService.signout();

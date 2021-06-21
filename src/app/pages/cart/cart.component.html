@@ -23,7 +23,7 @@
 <ion-content id="cart" fullscreen>
 
     <!-- When Cart is Empty -->
-    <ion-grid class="ion-padding" id="empty" *ngIf="!cartProducts?.length" style="height: 100%">
+    <ion-grid class="ion-padding" id="empty" *ngIf="!storageService.cartProducts?.length" style="height: 100%">
         <ion-row class="ion-align-items-center ion-justify-content-center" style="height: 100%; flex-direction: column">
             <div class="ion-text-center ion-padding">
                 <ion-icon name="cart" style="zoom:5.0;" color="medium"></ion-icon>
@@ -36,9 +36,9 @@
     </ion-grid>
 
     <!-- Cart Contents -->
-    <div *ngIf="cartProducts?.length">
+    <div *ngIf="storageService.cartProducts?.length">
         <!-- Cart Product List -->
-        <ion-card *ngFor="let item of cartProducts; let i = index">
+        <ion-card *ngFor="let item of storageService.cartProducts; let i = index">
             <ion-list lines="none">
                 <ion-item class="ion-no-padding">
 
@@ -99,7 +99,7 @@
 <ion-footer class="ion-no-border">
     <ion-toolbar class="ion-padding" transparent>
         <!-- Checkout Button Option -->
-        <ion-button color="color1" expand="block" *ngIf="cartProducts?.length" routerLink="/checkout">PASSER À LA
+        <ion-button color="color1" expand="block" *ngIf="storageService.cartProducts?.length" routerLink="/checkout">PASSER À LA
             CAISSE
         </ion-button>
     </ion-toolbar>

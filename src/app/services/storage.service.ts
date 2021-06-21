@@ -19,7 +19,9 @@ export class StorageService {
 
   constructor(private adminService: AdminService) { }
 
-  async setObject(product: Product, ITEMS_KEY) {
+  cartProducts: any[] = [];
+
+  async setObject(product: any, ITEMS_KEY) {
     await Storage.get({ key: ITEMS_KEY }).then(async (products: any) => {
 
       if (products.value) {

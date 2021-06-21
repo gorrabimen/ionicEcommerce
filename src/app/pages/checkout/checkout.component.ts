@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { StorageService } from '../../services/storage.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-checkout',
@@ -19,11 +20,49 @@ export class CheckoutComponent implements OnInit {
 
   steps: any = [];
   cards: any = [];
+  orderForm: FormGroup;
 
-  constructor(public modalController: ModalController,
+  constructor(
+    public modalController: ModalController,
+    public formBuilder: FormBuilder,
     private router: Router,
     private storageService: StorageService
-  ) { }
+  ) {
+    this.steps.map(x => x.isSelected = false)
+    this.steps[0] = true
+    this.createOrderForm();
+  }
+
+
+  ionViewDidEnter() {
+    console.log("prods :", this.storageService.cartProducts);
+    if (this.storageService.cartProducts || this.storageService.cartProducts.length) {
+
+      this.orderForm.patchValue({
+        price: this.getTotal()
+      });
+    } else {
+      this.router.navigate(['/tabs/cart']);
+    }
+  }
+
+  createOrderForm() {
+    this.orderForm = this.formBuilder.group({
+      address: ["", Validators.required],
+      state: ["", Validators.required],
+      city: ["", Validators.required],
+      zip: ["", Validators.required],
+      price: [0, Validators.required],
+      products: [[], Validators.required],
+      user: [localStorage.getItem('userId'), Validators.required],
+    });
+  }
+
+  getTotal() {
+    return this.storageService.cartProducts.reduce(
+      (accumulateur, valeurCourante) => accumulateur + valeurCourante.price * valeurCourante.quantity, 0
+    );
+  }
 
   ngOnInit() {
     // Checkout steps
@@ -41,17 +80,17 @@ export class CheckoutComponent implements OnInit {
 
   // Go to xext section function
   next() {
-    // If current section is billing then next payment section will be visible
-    if (this.steps[0].isSelected) {
-      this.steps[0].isSelected = false;
-      this.steps[1].isSelected = true;
+    console.log("this.storageService.cartProducts.length :",this.storageService.cartProducts.length);
+    
+    if (this.storageService.cartProducts && this.storageService.cartProducts.length !=0) {
+      // If current section is billing then next payment section will be visible
+      if (this.steps[0].isSelected) {
+        this.steps[0].isSelected = false;
+        this.steps[1].isSelected = true;
+      }
+    } else {
+      this.router.navigate(['/cart']);
     }
-    // If current section is Billing then next section confirm will be visible 
-    // else if (this.steps[1].isSelected) {
-    //   this.steps[0].isSelected = false;
-    //   this.steps[1].isSelected = false;
-    //   this.steps[2].isSelected = true;
-    // }
   }
 
   // Go to order page function
