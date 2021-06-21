@@ -8,6 +8,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'app-checkout',
@@ -20,7 +21,9 @@ export class CheckoutComponent implements OnInit {
   cards: any = [];
 
   constructor(public modalController: ModalController,
-    private router: Router) { }
+    private router: Router,
+    private storageService: StorageService
+  ) { }
 
   ngOnInit() {
     // Checkout steps
@@ -34,11 +37,6 @@ export class CheckoutComponent implements OnInit {
         isSelected: false
       }
     ]
-
-    // Payment cards images
-    this.cards = ["assets/images/cards/visa.png",
-      "assets/images/cards/mastercard.png",
-      "assets/images/cards/paypal.png"]
   }
 
   // Go to xext section function
@@ -58,11 +56,15 @@ export class CheckoutComponent implements OnInit {
 
   // Go to order page function
   gotoOrderPage() {
+    localStorage.removeItem('_cap_my-cart')
+    this.storageService.clear()
     this.router.navigate(['/tabs/orders']);
   }
 
   // Go to product page
   gotoProductsPage() {
+    localStorage.removeItem('_cap_my-cart')
+    this.storageService.clear()
     this.router.navigate(['/tabs/products']);
   }
 

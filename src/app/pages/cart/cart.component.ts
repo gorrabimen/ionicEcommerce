@@ -35,11 +35,15 @@ export class CartComponent {
   // Get Cart Items From Storage
   getCartItems() {
     this.storageService.getObject('my-cart').then((products) => {
-      this.cartProducts = products;
-      for (var i = 0; i < this.cartProducts.length; i++) {
-        this.cartProducts[i].quantity = 1;
+      if(products && products.length){
+        this.cartProducts = products;
+        for (var i = 0; i < this.cartProducts.length; i++) {
+          this.cartProducts[i].quantity = 1;
+        }
+        this.total =this.getTotal();
+      }else{
+        this.cartProducts = []
       }
-      this.total =this.getTotal();
     });
   }
 
